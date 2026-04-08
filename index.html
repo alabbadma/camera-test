@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>اختبار الكاميرا</title>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      margin:0;
+      padding:24px;
+      background:#f5f7fa;
+      text-align:center;
+      direction:rtl;
+    }
+    .box{
+      max-width:820px;
+      margin:0 auto;
+      background:#fff;
+      border-radius:16px;
+      padding:24px;
+      box-shadow:0 4px 20px rgba(0,0,0,.08);
+    }
+    h2{
+      margin-top:0;
+      margin-bottom:18px;
+    }
+    button{
+      background:#0b57d0;
+      color:#fff;
+      border:none;
+      border-radius:10px;
+      padding:12px 22px;
+      font-size:16px;
+      cursor:pointer;
+      margin:6px;
+    }
+    button.stop{
+      background:#c62828;
+    }
+    video{
+      width:100%;
+      max-width:560px;
+      background:#000;
+      border-radius:12px;
+      margin-top:18px;
+    }
+    .info,.msg{
+      margin-top:16px;
+      text-align:right;
+      white-space:pre-wrap;
+      word-break:break-word;
+      border-radius:12px;
+      padding:12px;
+      line-height:1.9;
+    }
+    .info{
+      background:#f3f3f3;
+      border:1px solid #d0d0d0;
+    }
+    .msg{
+      background:#fff4f4;
+      border:1px solid #f1b5b5;
+      color:#b00020;
+      display:none;
+    }
+    .ok{
+      background:#f1fff4 !important;
+      border:1px solid #a7ddb3 !important;
+      color:#146c2e !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>اختبار تشغيل الكاميرا</h2>
+
+    <div>
+      <button onclick="startCamera()">تشغيل الكاميرا</button>
+      <button class="stop" onclick="stopCamera()">إيقاف الكاميرا</button>
+    </div>
+
+    <video id="video" autoplay playsinline muted></video>
+
+    <div id="info" class="info">جارٍ قراءة البيئة...</div>
+    <div id="msg" class="msg"></div>
+  </div>
+
+  <script>
+    let currentStream = null;
+
+    async function showDiagnostics() {
+      const lines = [];
+      lines.push('الرابط الحالي: ' + location.href);
+      lines.push('الأصل الحالي: ' + location.origin);
+      lines.push('داخل iframe: ' + (window.top !== window.self ? 'نعم' : 'لا'));
+      lines.push('آمن HTTPS: ' + (location.protocol === 'https:' ? 'نعم' : 'لا'));
+      lines.push('يدعم mediaDevices: ' + (!!navigator.mediaDevices ? 'نعم' : 'لا'));
+      lines.push('يدعم getUserMedia: ' + (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) ? 'نعم' : 'لا'));
+
+      try {
+        const fp = document.permissionsPolicy || document.featurePolicy;
+        if (fp && fp.allowsFeature) {
+          lines.push('يسمح بالكاميرا وفق policy: ' + (fp.allowsFeature('camera') ? 'نعم' : 'لا'));
+          lines.push('يسمح بالمايك وفق policy: ' + (fp.allowsFeature('microphone') ? 'نعم' : 'لا'));
+        } else {
+          lines.push('فحص policy: غير متاح');
+        }
+      } catch (e) {
+        lines.push('خطأ policy: ' + e.message);
+      }
+
+      try {
+        if (navigator.permissions && navigator.permissions.query) {
+          const cam = await navigator.permissions.query({ name: 'camera' });
+          lines.push('حالة إذن الكاميرا: ' + cam.state);
+        } else {
+          lines.push('فحص إذن الكاميرا: غير متاح');
+        }
+      } catch (e) {
+        lines.push('خطأ فحص الإذن: ' + e.message);
+      }
+
+      document.getElementById('info').textContent = lines.join('\n');
+    }
+
+    function showMessage(text, ok = false) {
+      const msg = document.getElementById('msg');
+      msg.style.display = 'block';
+      msg.textContent = text;
+      msg.className = ok ? 'msg ok' : 'msg';
+    }
+
+    async function startCamera() {
+      const video = document.getElementById('video');
+
+      try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          showMessage('المتصفح أو البيئة الحالية لا تدعم getUserMedia.');
+          return;
+        }
+
+        if (currentStream) {
+          stopCamera(false);
+        }
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'environment' },
+          audio: false
+        });
+
+        currentStream = stream;
+        video.srcObject = stream;
+        await video.play();
+
+        showMessage('تم تشغيل الكاميرا بنجاح.', true);
+        await showDiagnostics();
+
+      } catch (error) {
+        showMessage(
+          'تعذر تشغيل الكاميرا: ' + error.message + '\n' +
+          'اسم الخطأ: ' + error.name
+        );
+        console.error(error);
+        await showDiagnostics();
+      }
+    }
+
+    function stopCamera(showMsg = true) {
+      const video = document.getElementById('video');
+
+      if (currentStream) {
+        currentStream.getTracks().forEach(track => track.stop());
+        currentStream = null;
+      }
+
+      video.srcObject = null;
+
+      if (showMsg) {
+        showMessage('تم إيقاف الكاميرا.', true);
+      }
+    }
+
+    showDiagnostics();
+  </script>
+</body>
+</html>
