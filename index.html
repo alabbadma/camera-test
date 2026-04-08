@@ -10,504 +10,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --green-dark:#0f5a43;
-      --green-main:#17785a;
-      --green-light:#4caf88;
-      --green-soft:#eaf6f1;
-      --green-soft-2:#f4fbf8;
-      --text-dark:#16382c;
-      --white:#ffffff;
-      --danger:#c62828;
-      --warning:#ef6c00;
-      --success:#1b8f4d;
-      --info:#1565c0;
-      --shadow:0 12px 30px rgba(0,0,0,.12);
-      --radius:20px;
-    }
-
-    *{
-      box-sizing:border-box;
-      font-family:'Cairo', sans-serif;
-    }
-
-    html,body{
-      margin:0;
-      padding:0;
-      min-height:100%;
-      background:#edf5f1;
-      color:var(--text-dark);
-    }
-
-    body{
-      display:flex;
-      flex-direction:column;
-    }
-
-    .page-shell{
-      flex:1;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      background:
-        radial-gradient(circle at top right, rgba(76,175,136,.12) 0, rgba(76,175,136,.12) 120px, transparent 121px),
-        radial-gradient(circle at top left, rgba(23,120,90,.08) 0, rgba(23,120,90,.08) 160px, transparent 161px),
-        linear-gradient(180deg, #f5fbf8 0%, #ecf6f1 100%);
-    }
-
-    .wrap{
-      width:min(1150px, 96%);
-      margin:18px auto 90px auto;
-      flex:1;
-    }
-
-    .hero{
-      background:var(--white);
-      border-radius:28px;
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      border:1px solid #d7ebe2;
-    }
-
-    .hero-top{
-      background:
-        linear-gradient(90deg, var(--green-dark) 0%, var(--green-main) 55%, var(--green-light) 100%);
-      min-height:170px;
-      position:relative;
-      overflow:hidden;
-      padding:22px 26px;
-    }
-
-    .hero-top::before,
-    .hero-top::after{
-      content:"";
-      position:absolute;
-      border-radius:50%;
-      opacity:.14;
-      background:#ffffff;
-    }
-
-    .hero-top::before{
-      width:280px;
-      height:280px;
-      top:-140px;
-      right:-70px;
-    }
-
-    .hero-top::after{
-      width:220px;
-      height:220px;
-      bottom:-110px;
-      left:-50px;
-    }
-
-    .hero-head{
-      position:relative;
-      z-index:1;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:20px;
-      flex-wrap:wrap;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:18px;
-      flex-wrap:wrap;
-    }
-
-    .brand img{
-      width:190px;
-      max-width:42vw;
-      height:auto;
-      object-fit:contain;
-      filter:drop-shadow(0 2px 8px rgba(0,0,0,.12));
-      background:transparent;
-    }
-
-    .title-block{
-      color:#fff;
-    }
-
-    .title-block h1{
-      margin:0;
-      font-size:36px;
-      line-height:1.3;
-      font-weight:800;
-    }
-
-    .title-block p{
-      margin:8px 0 0 0;
-      font-size:15px;
-      opacity:.95;
-      font-weight:600;
-    }
-
-    .time-panel{
-      min-width:280px;
-      background:rgba(255,255,255,.16);
-      backdrop-filter:blur(3px);
-      border:1px solid rgba(255,255,255,.18);
-      border-radius:20px;
-      color:#fff;
-      padding:14px 18px;
-      text-align:center;
-    }
-
-    .clock{
-      font-size:42px;
-      font-weight:800;
-      line-height:1.1;
-      letter-spacing:1px;
-    }
-
-    .dayline{
-      font-size:17px;
-      font-weight:700;
-      margin-top:8px;
-    }
-
-    .dates{
-      font-size:14px;
-      line-height:1.9;
-      margin-top:6px;
-      opacity:.98;
-    }
-
-    .content{
-      padding:22px;
-      background:var(--green-soft-2);
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:18px;
-    }
-
-    .card{
-      background:#fff;
-      border-radius:22px;
-      padding:18px;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      border:1px solid #deeee7;
-    }
-
-    .card h2{
-      margin:0 0 14px 0;
-      font-size:22px;
-      color:var(--green-dark);
-      font-weight:800;
-    }
-
-    .video-wrap{
-      position:relative;
-      border-radius:18px;
-      overflow:hidden;
-      background:#0d0d0d;
-      border:3px solid #d9ebe4;
-      min-height:380px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    video{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      background:#000;
-      display:block;
-    }
-
-    canvas{
-      display:none;
-    }
-
-    .video-placeholder{
-      color:#fff;
-      text-align:center;
-      padding:20px;
-      font-size:18px;
-      line-height:2;
-      opacity:.92;
-    }
-
-    .controls{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:16px;
-    }
-
-    .btn{
-      border:0;
-      border-radius:14px;
-      min-height:54px;
-      padding:12px 24px;
-      cursor:pointer;
-      font-size:17px;
-      font-weight:800;
-      transition:.15s ease;
-      box-shadow:0 8px 18px rgba(0,0,0,.08);
-    }
-
-    .btn:hover{
-      transform:translateY(-1px);
-    }
-
-    .btn:active{
-      transform:translateY(1px);
-    }
-
-    .btn-main{
-      background:linear-gradient(180deg, var(--green-main), var(--green-dark));
-      color:#fff;
-    }
-
-    .btn-secondary{
-      background:#e5f4ee;
-      color:var(--green-dark);
-      border:1px solid #cde7dc;
-    }
-
-    .btn-danger{
-      background:#f9e5e5;
-      color:var(--danger);
-      border:1px solid #efc5c5;
-    }
-
-    .message-box{
-      min-height:110px;
-      border-radius:18px;
-      padding:18px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      line-height:2;
-      font-size:21px;
-      font-weight:800;
-      background:#eef6f2;
-      color:var(--green-dark);
-      border:2px dashed #cfe5da;
-    }
-
-    .msg-success{
-      background:#e9f7ef;
-      color:var(--success);
-      border:2px solid #bde1c8;
-    }
-
-    .msg-danger{
-      background:#fdecec;
-      color:var(--danger);
-      border:2px solid #f0c1c1;
-    }
-
-    .msg-warning{
-      background:#fff3e6;
-      color:var(--warning);
-      border:2px solid #f4d2ae;
-    }
-
-    .msg-info{
-      background:#ebf3fd;
-      color:var(--info);
-      border:2px solid #c2d9f7;
-    }
-
-    .employee-card{
-      margin-top:16px;
-      border-radius:18px;
-      padding:16px;
-      background:linear-gradient(180deg, #f9fdfb, #edf8f3);
-      border:1px solid #d3e9de;
-      min-height:220px;
-    }
-
-    .employee-title{
-      margin:0 0 12px 0;
-      font-size:20px;
-      color:var(--green-dark);
-      font-weight:800;
-      text-align:center;
-    }
-
-    .employee-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-
-    .info-item{
-      background:#fff;
-      border-radius:14px;
-      border:1px solid #dfefe8;
-      padding:12px 14px;
-      min-height:72px;
-    }
-
-    .info-item .label{
-      color:#6a8a7c;
-      font-size:13px;
-      font-weight:700;
-      margin-bottom:4px;
-    }
-
-    .info-item .value{
-      color:var(--text-dark);
-      font-size:17px;
-      font-weight:800;
-      line-height:1.7;
-      word-break:break-word;
-    }
-
-    .status-badges{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin-top:14px;
-    }
-
-    .badge{
-      padding:8px 14px;
-      border-radius:999px;
-      font-size:14px;
-      font-weight:800;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .badge-success{
-      background:#e7f6ee;
-      color:var(--success);
-      border:1px solid #b9e0c8;
-    }
-
-    .badge-danger{
-      background:#fdecec;
-      color:var(--danger);
-      border:1px solid #f1c2c2;
-    }
-
-    .badge-warning{
-      background:#fff4e6;
-      color:var(--warning);
-      border:1px solid #f5d4af;
-    }
-
-    .badge-info{
-      background:#edf4ff;
-      color:var(--info);
-      border:1px solid #c8dafb;
-    }
-
-    .hint-box{
-      margin-top:14px;
-      border-radius:16px;
-      background:#f7fbf9;
-      border:1px dashed #cfe2d9;
-      padding:14px;
-      font-size:15px;
-      line-height:2;
-      color:#4d6e61;
-      text-align:right;
-    }
-
-    .hidden{
-      display:none !important;
-    }
-
-    .footer{
-      position:fixed;
-      right:0;
-      left:0;
-      bottom:0;
-      background:linear-gradient(90deg, var(--green-dark), var(--green-main));
-      color:#fff;
-      text-align:center;
-      padding:10px 12px;
-      z-index:30;
-      box-shadow:0 -6px 18px rgba(0,0,0,.12);
-    }
-
-    .footer div{
-      font-size:13px;
-      font-weight:700;
-      line-height:1.8;
-    }
-
-    @media (max-width: 900px){
-      .grid{
-        grid-template-columns:1fr;
-      }
-
-      .title-block h1{
-        font-size:28px;
-      }
-
-      .clock{
-        font-size:34px;
-      }
-
-      .employee-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media (max-width: 640px){
-      .hero-top{
-        padding:18px;
-      }
-
-      .brand{
-        justify-content:center;
-      }
-
-      .hero-head{
-        justify-content:center;
-      }
-
-      .time-panel{
-        width:100%;
-      }
-
-      .title-block{
-        text-align:center;
-      }
-
-      .title-block h1{
-        font-size:24px;
-      }
-
-      .content{
-        padding:14px;
-      }
-
-      .card{
-        padding:14px;
-      }
-
-      .message-box{
-        font-size:18px;
-        min-height:100px;
-      }
-
-      .btn{
-        width:100%;
-      }
-    }
-  </style>
+    :root{--green-dark:#0f5a43;--green-main:#17785a;--green-light:#4caf88;--text-dark:#17372b;--white:#ffffff;--danger:#d32f2f;--warning:#ef6c00;--success:#1b8f4d;--info:#1565c0;--shadow:0 10px 28px rgba(0,0,0,.10);--frame-success:#66ff8a;--frame-danger:#ff6464;--frame-info:#66d4ff;--frame-warning:#ffd35a}*{box-sizing:border-box;font-family:'Cairo',sans-serif}html,body{margin:0;padding:0;min-height:100%;background:#edf5f1;color:var(--text-dark)}body{display:flex;flex-direction:column;background:linear-gradient(180deg,#f6fbf8 0%,#edf6f1 100%)}.page-shell{flex:1;min-height:100vh;padding:18px 10px 82px;position:relative}.frame-flash{position:fixed;inset:8px;border:10px solid transparent;pointer-events:none;z-index:2000;opacity:0;box-shadow:none}.frame-flash.active{animation:frameFlash 3s ease-out forwards}.frame-flash.success{border-color:var(--frame-success);box-shadow:0 0 18px var(--frame-success), inset 0 0 18px var(--frame-success)}.frame-flash.danger{border-color:var(--frame-danger);box-shadow:0 0 18px var(--frame-danger), inset 0 0 18px var(--frame-danger)}.frame-flash.info{border-color:var(--frame-info);box-shadow:0 0 18px var(--frame-info), inset 0 0 18px var(--frame-info)}.frame-flash.warning{border-color:var(--frame-warning);box-shadow:0 0 18px var(--frame-warning), inset 0 0 18px var(--frame-warning)}@keyframes frameFlash{0%{opacity:0}8%{opacity:1}24%{opacity:.16}40%{opacity:1}56%{opacity:.20}72%{opacity:.9}100%{opacity:0}}.wrap{width:min(980px,94%);margin:0 auto}.shell{background:var(--white);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;border:1px solid #d7ebe2}.hero-top{background:linear-gradient(90deg,var(--green-dark) 0%,var(--green-main) 58%,var(--green-light) 100%);position:relative;overflow:hidden;padding:16px 18px}.hero-top::before,.hero-top::after{content:"";position:absolute;border-radius:50%;opacity:.12;background:#ffffff}.hero-top::before{width:220px;height:220px;top:-120px;right:-50px}.hero-top::after{width:160px;height:160px;bottom:-70px;left:-40px}.hero-head{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.brand img{width:150px;max-width:38vw;height:auto;object-fit:contain}.title-block{color:#fff}.title-block h1{margin:0;font-size:20px;line-height:1.35;font-weight:800}.title-block p{margin:5px 0 0;font-size:12px;opacity:.95;font-weight:600}.time-panel{min-width:240px;background:rgba(255,255,255,.14);backdrop-filter:blur(3px);border:1px solid rgba(255,255,255,.16);border-radius:16px;color:#fff;padding:10px 14px;text-align:center}.clock{font-size:24px;font-weight:800;line-height:1.1;letter-spacing:1px}.dayline{font-size:13px;font-weight:700;margin-top:6px}.dates{font-size:11px;line-height:1.8;margin-top:4px;opacity:.98}.content{padding:16px;background:#f5fbf8}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.card{background:#fff;border-radius:18px;padding:14px;box-shadow:0 6px 16px rgba(0,0,0,.05);border:1px solid #deeee7}.card h2{margin:0 0 10px 0;font-size:16px;color:var(--green-dark);font-weight:800}.video-wrap{position:relative;border-radius:16px;overflow:hidden;background:#0d0d0d;border:2px solid #d9ebe4;min-height:320px;display:flex;align-items:center;justify-content:center}video{width:100%;height:100%;object-fit:cover;background:#000;display:block}canvas{display:none}.video-placeholder{color:#fff;text-align:center;padding:18px;font-size:14px;line-height:1.9;opacity:.92}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;justify-content:center}.btn{border:0;border-radius:12px;min-height:38px;padding:8px 12px;cursor:pointer;font-size:13px;font-weight:800;transition:.15s ease;box-shadow:0 6px 14px rgba(0,0,0,.06);display:inline-flex;align-items:center;justify-content:center;gap:7px}.btn:hover{transform:translateY(-1px)}.btn:active,.btn.is-active{transform:translateY(1px);filter:brightness(.94);box-shadow:0 3px 10px rgba(0,0,0,.10) inset}.btn-main{background:linear-gradient(180deg,var(--green-main),var(--green-dark));color:#fff}.btn-secondary{background:#e5f4ee;color:var(--green-dark);border:1px solid #cde7dc}.btn-danger{background:#f9e5e5;color:var(--danger);border:1px solid #efc5c5}.message-box{min-height:90px;border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.9;font-size:15px;font-weight:800;background:#eef6f2;color:var(--green-dark);border:2px dashed #cfe5da}.msg-success{background:#e9f7ef;color:var(--success);border:2px solid #bde1c8}.msg-danger{background:#fdecec;color:var(--danger);border:2px solid #f0c1c1}.msg-warning{background:#fff3e6;color:var(--warning);border:2px solid #f4d2ae}.msg-info{background:#ebf3fd;color:var(--info);border:2px solid #c2d9f7}.summary-card{margin-top:12px;border-radius:16px;padding:14px;background:linear-gradient(180deg,#fbfefd,#edf8f3);border:1px solid #d3e9de;min-height:160px}.summary-title{margin:0 0 10px;font-size:15px;color:var(--green-dark);font-weight:800;text-align:center}.summary-grid{display:grid;grid-template-columns:1fr;gap:8px}.info-item{background:#fff;border-radius:12px;border:1px solid #dfefe8;padding:10px 12px;min-height:56px}.info-item .label{color:#6a8a7c;font-size:11px;font-weight:700;margin-bottom:2px}.info-item .value{color:var(--text-dark);font-size:13px;font-weight:800;line-height:1.7;word-break:break-word}.status-badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px}.badge{padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}.badge-success{background:#e7f6ee;color:var(--success);border:1px solid #b9e0c8}.badge-danger{background:#fdecec;color:var(--danger);border:1px solid #f1c2c2}.badge-warning{background:#fff4e6;color:var(--warning);border:1px solid #f5d4af}.badge-info{background:#edf4ff;color:var(--info);border:1px solid #c8dafb}.hint-box{margin-top:10px;border-radius:14px;background:#f7fbf9;border:1px dashed #cfe2d9;padding:12px;font-size:12px;line-height:1.9;color:#4d6e61;text-align:right}.hidden{display:none!important}.footer{position:fixed;right:0;left:0;bottom:0;background:linear-gradient(90deg,var(--green-dark),var(--green-main));color:#fff;text-align:center;padding:8px 10px;z-index:30;box-shadow:0 -6px 18px rgba(0,0,0,.12)}.footer div{font-size:12px;font-weight:700;line-height:1.6}@media (max-width:900px){.grid{grid-template-columns:1fr}.time-panel{width:100%}.hero-head{justify-content:center}.brand{justify-content:center}.title-block{text-align:center}}@media (max-width:640px){.brand img{width:128px}.title-block h1{font-size:18px}.clock{font-size:22px}.video-wrap{min-height:260px}}</style>
 </head>
 <body>
+  <div id="frameFlash" class="frame-flash"></div>
+
   <div class="page-shell">
     <div class="wrap">
-      <section class="hero">
+      <section class="shell">
         <div class="hero-top">
           <div class="hero-head">
             <div class="brand">
@@ -547,8 +57,7 @@
               </div>
 
               <div class="hint-box">
-                هذا الإصدار يعمل حاليًا كوضع تجريبي على GitHub.<br>
-                في المرحلة التالية سيتم ربطه مع Google Apps Script لتسجيل الحضور والانصراف فعليًا.
+                ملاحظة: ضع رابط Google Apps Script في المتغير GAS_WEBAPP_URL داخل هذا الملف قبل الرفع النهائي.
               </div>
             </div>
 
@@ -559,28 +68,13 @@
                 بانتظار بدء الكاميرا ومسح رمز الموظف
               </div>
 
-              <div id="employeeCard" class="employee-card">
-                <h3 class="employee-title">بيانات الموظف</h3>
+              <div class="summary-card">
+                <h3 class="summary-title">ملخص القراءة</h3>
 
-                <div class="employee-grid">
+                <div class="summary-grid">
                   <div class="info-item">
                     <div class="label">الاسم</div>
                     <div id="empName" class="value">---</div>
-                  </div>
-
-                  <div class="info-item">
-                    <div class="label">رقم الهوية</div>
-                    <div id="empNid" class="value">---</div>
-                  </div>
-
-                  <div class="info-item">
-                    <div class="label">رقم الموظف</div>
-                    <div id="empId" class="value">---</div>
-                  </div>
-
-                  <div class="info-item">
-                    <div class="label">القسم / المسمى</div>
-                    <div id="empDept" class="value">---</div>
                   </div>
 
                   <div class="info-item">
@@ -595,6 +89,11 @@
                 </div>
 
                 <div id="statusBadges" class="status-badges"></div>
+
+                <div id="confirmBar" class="controls hidden" style="margin-top:14px; justify-content:center;">
+                  <button id="btnConfirmCheckout" class="btn btn-main" type="button">موافق</button>
+                  <button id="btnCancelCheckout" class="btn btn-secondary" type="button">إلغاء</button>
+                </div>
               </div>
             </div>
           </div>
@@ -608,13 +107,10 @@
     <div>أ. محمد بن عبدالعزيز العباد 0563660366</div>
   </footer>
 
-  <audio id="soundSuccess" preload="auto"></audio>
-  <audio id="soundWarning" preload="auto"></audio>
-  <audio id="soundError" preload="auto"></audio>
-
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 
   <script>
+    const GAS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxeTix9fFV_A3Bbn24unLMrP8pzfRTcDC58Yengw3Lc5X_oSO83XzK8IrjxPPYtaSpI/exec';
     const RIYADH_TZ = 'Asia/Riyadh';
 
     const video = document.getElementById('video');
@@ -630,27 +126,17 @@
     const statusBadges = document.getElementById('statusBadges');
 
     const empName = document.getElementById('empName');
-    const empNid = document.getElementById('empNid');
-    const empId = document.getElementById('empId');
-    const empDept = document.getElementById('empDept');
     const empTime = document.getElementById('empTime');
     const empDuration = document.getElementById('empDuration');
+
+    const frameFlash = document.getElementById('frameFlash');
 
     let stream = null;
     let scanning = false;
     let rafId = null;
     let lastCode = '';
     let lastCodeAt = 0;
-
-    const soundSuccess = document.getElementById('soundSuccess');
-    const soundWarning = document.getElementById('soundWarning');
-    const soundError = document.getElementById('soundError');
-
-    function initTones() {
-      soundSuccess.src = 'data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTAAAAA=';
-      soundWarning.src = 'data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTAAAAA=';
-      soundError.src = 'data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTAAAAA=';
-    }
+    let pendingCheckoutNid = '';
 
     function playBeep(type='success'){
       try{
@@ -659,68 +145,43 @@
         const ctxAudio = new AudioContextClass();
         const oscillator = ctxAudio.createOscillator();
         const gainNode = ctxAudio.createGain();
-
         oscillator.connect(gainNode);
         gainNode.connect(ctxAudio.destination);
-
-        if(type === 'success'){
-          oscillator.frequency.value = 880;
-        }else if(type === 'warning'){
-          oscillator.frequency.value = 520;
-        }else{
-          oscillator.frequency.value = 240;
-        }
-
+        if(type === 'success') oscillator.frequency.value = 880;
+        else if(type === 'warning') oscillator.frequency.value = 520;
+        else if(type === 'info') oscillator.frequency.value = 660;
+        else oscillator.frequency.value = 240;
         gainNode.gain.value = 0.06;
         oscillator.start();
-
-        setTimeout(() => {
-          oscillator.stop();
-          ctxAudio.close();
-        }, 180);
+        setTimeout(() => { oscillator.stop(); ctxAudio.close(); }, 180);
       }catch(e){}
     }
 
+    function fireFrameFlash(type){
+      frameFlash.className = 'frame-flash';
+      frameFlash.classList.add(type || 'info');
+      void frameFlash.offsetWidth;
+      frameFlash.classList.add('active');
+      setTimeout(() => { frameFlash.className = 'frame-flash'; }, 3000);
+    }
+
     function formatRiyadhTime(date = new Date()){
-      return new Intl.DateTimeFormat('ar-SA', {
-        timeZone: RIYADH_TZ,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
-      }).format(date);
+      return new Intl.DateTimeFormat('ar-SA', {timeZone: RIYADH_TZ, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true}).format(date);
     }
 
     function formatGregorian(date = new Date()){
-      return new Intl.DateTimeFormat('ar-SA', {
-        timeZone: RIYADH_TZ,
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long'
-      }).format(date);
+      return new Intl.DateTimeFormat('en-GB', {timeZone: RIYADH_TZ, year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'}).format(date);
     }
 
     function formatHijri(date = new Date()){
-      return new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {
-        timeZone: RIYADH_TZ,
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long'
-      }).format(date);
+      return new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {timeZone: RIYADH_TZ, year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'}).format(date);
     }
 
     function updateClock(){
       const now = new Date();
       document.getElementById('clock').textContent = formatRiyadhTime(now);
-      document.getElementById('dayLine').textContent = new Intl.DateTimeFormat('ar-SA', {
-        timeZone: RIYADH_TZ,
-        weekday:'long'
-      }).format(now);
-      document.getElementById('dates').innerHTML =
-        'الميلادي: ' + formatGregorian(now) + '<br>' +
-        'الهجري: ' + formatHijri(now);
+      document.getElementById('dayLine').textContent = new Intl.DateTimeFormat('ar-SA', {timeZone: RIYADH_TZ, weekday:'long'}).format(now);
+      document.getElementById('dates').innerHTML = 'الميلادي: ' + formatGregorian(now) + '<br>' + 'الهجري: ' + formatHijri(now);
     }
 
     function setMessage(type, text){
@@ -742,188 +203,196 @@
       });
     }
 
-    function clearEmployeeCard(){
+    function clearSummary(){
       empName.textContent = '---';
-      empNid.textContent = '---';
-      empId.textContent = '---';
-      empDept.textContent = '---';
       empTime.textContent = '---';
       empDuration.textContent = '---';
       statusBadges.innerHTML = '';
+      hideConfirmBar();
+    }
+
+    function resetButtonStates(){
+      btnStart.classList.remove('is-active');
+      btnStop.classList.remove('is-active');
+      btnReset.classList.remove('is-active');
     }
 
     function resetScreen(){
-      clearEmployeeCard();
+      clearSummary();
+      hideConfirmBar();
       setMessage('info', 'تمت تهيئة الشاشة لاستقبال موظف جديد');
       lastCode = '';
       lastCodeAt = 0;
+      resetButtonStates();
+    }
+
+    function showConfirmBar(nid){ pendingCheckoutNid = nid || ''; document.getElementById('confirmBar').classList.remove('hidden'); }
+    function hideConfirmBar(){ pendingCheckoutNid = ''; document.getElementById('confirmBar').classList.add('hidden'); }
+
+    function fillSummaryFromApi(emp, timeText, workDuration){
+      empName.textContent = emp?.fullName || '---';
+      empTime.textContent = timeText || '---';
+      empDuration.textContent = workDuration || '---';
+    }
+
+    async function callAttendanceApi(action, nationalId){
+      const res = await fetch(GAS_WEBAPP_URL, {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify({ action, nationalId })
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return await res.json();
+    }
+
+    function renderApiResult(result){
+      hideConfirmBar();
+      if (result.employee) fillSummaryFromApi(result.employee, result.time || '---', result.workDuration || '---');
+
+      if (result.action === 'checkin') {
+        setMessage('success', result.message || 'تم تسجيل الدخول بنجاح');
+        setBadges([{ text:'تسجيل دخول', className:'badge-success' },{ text:'في الوقت الطبيعي', className:'badge-info' }]);
+        playBeep('success'); fireFrameFlash('success'); return;
+      }
+      if (result.action === 'late_checkin') {
+        setMessage('danger', result.message || 'تم تسجيل دخول متأخر');
+        setBadges([{ text:'دخول متأخر', className:'badge-danger' },{ text: result.lateDuration || '---', className:'badge-warning' }]);
+        playBeep('danger'); fireFrameFlash('danger'); return;
+      }
+      if (result.action === 'checkout_preview') {
+        setMessage('info', result.message || 'سيتم تسجيل الخروج');
+        setBadges([{ text:'تأكيد الخروج', className:'badge-info' },{ text: result.workDuration || '---', className:'badge-success' }]);
+        showConfirmBar(result.employee?.nationalId || '');
+        playBeep('info'); fireFrameFlash('info'); return;
+      }
+      if (result.action === 'early_leave_preview') {
+        setMessage('warning', result.message || 'سيتم تسجيل خروج مبكر');
+        setBadges([{ text:'خروج مبكر', className:'badge-warning' },{ text: result.earlyLeaveDuration || '---', className:'badge-danger' }]);
+        showConfirmBar(result.employee?.nationalId || '');
+        playBeep('warning'); fireFrameFlash('warning'); return;
+      }
+      if (result.action === 'checkout') {
+        setMessage('success', result.message || 'تم تسجيل الخروج بنجاح');
+        setBadges([{ text:'تسجيل خروج', className:'badge-success' },{ text: result.workDuration || '---', className:'badge-info' }]);
+        playBeep('success'); fireFrameFlash('success'); return;
+      }
+      if (result.action === 'early_leave') {
+        setMessage('warning', result.message || 'تم تسجيل خروج مبكر');
+        setBadges([{ text:'خروج مبكر', className:'badge-warning' },{ text: result.earlyLeaveDuration || '---', className:'badge-danger' }]);
+        playBeep('warning'); fireFrameFlash('warning'); return;
+      }
+      if (result.action === 'already_completed') {
+        setMessage('danger', result.message || 'تم تسجيل الحضور والانصراف مسبقًا لهذا اليوم');
+        setBadges([{ text:'تم مسبقًا', className:'badge-danger' }]);
+        playBeep('danger'); fireFrameFlash('danger'); return;
+      }
+      if (result.action === 'checkout_without_checkin') {
+        setMessage('danger', result.message || 'لا يمكن تسجيل الخروج بدون دخول');
+        setBadges([{ text:'خروج بدون دخول', className:'badge-danger' }]);
+        playBeep('danger'); fireFrameFlash('danger'); return;
+      }
+      if (result.action === 'not_found') {
+        setMessage('danger', result.message || 'الموظف غير موجود');
+        setBadges([{ text:'غير معروف', className:'badge-danger' }]);
+        playBeep('danger'); fireFrameFlash('danger'); return;
+      }
+      setMessage('danger', result.message || 'تعذر تنفيذ العملية');
+      setBadges([{ text:'خطأ', className:'badge-danger' }]);
+      playBeep('danger'); fireFrameFlash('danger');
     }
 
     async function startCamera(){
       try{
-        if(stream) return;
-
-        stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: 'environment' },
-          audio: false
-        });
-
+        if(stream){ btnStart.classList.add('is-active'); return; }
+        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
         video.srcObject = stream;
         await video.play();
-
         video.classList.remove('hidden');
         videoPlaceholder.classList.add('hidden');
-
         canvas.width = video.videoWidth || 1280;
         canvas.height = video.videoHeight || 720;
-
         setMessage('success', 'تم تشغيل الكاميرا بنجاح، وجارٍ انتظار رمز الموظف');
         playBeep('success');
-
         scanning = true;
+        resetButtonStates();
+        btnStart.classList.add('is-active');
         scanLoop();
-
       }catch(error){
         setMessage('danger', 'تعذر تشغيل الكاميرا: ' + error.message);
-        playBeep('error');
-        console.error(error);
+        playBeep('danger'); fireFrameFlash('danger'); console.error(error);
       }
     }
 
     function stopCamera(){
       scanning = false;
-
-      if(rafId){
-        cancelAnimationFrame(rafId);
-        rafId = null;
-      }
-
-      if(stream){
-        stream.getTracks().forEach(track => track.stop());
-        stream = null;
-      }
-
+      if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
+      if(stream){ stream.getTracks().forEach(track => track.stop()); stream = null; }
       video.srcObject = null;
       video.classList.add('hidden');
       videoPlaceholder.classList.remove('hidden');
-
+      resetButtonStates();
+      btnStop.classList.add('is-active');
       setMessage('warning', 'تم إيقاف الكاميرا');
     }
 
     function scanLoop(){
       if(!scanning) return;
-
       rafId = requestAnimationFrame(scanLoop);
-
       if(video.readyState !== video.HAVE_ENOUGH_DATA) return;
-
-      if(canvas.width !== video.videoWidth || canvas.height !== video.videoHeight){
-        canvas.width = video.videoWidth || canvas.width;
-        canvas.height = video.videoHeight || canvas.height;
-      }
-
+      if(canvas.width !== video.videoWidth || canvas.height !== video.videoHeight){ canvas.width = video.videoWidth || canvas.width; canvas.height = video.videoHeight || canvas.height; }
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const code = jsQR(imageData.data, imageData.width, imageData.height);
-
       if(code && code.data){
         const raw = String(code.data).trim();
         const now = Date.now();
-
-        if(raw === lastCode && (now - lastCodeAt) < 2500){
-          return;
-        }
-
+        if(raw === lastCode && (now - lastCodeAt) < 2500) return;
         lastCode = raw;
         lastCodeAt = now;
-
         handleScannedCode(raw);
       }
     }
 
-    function handleScannedCode(raw){
-      // هذا وضع تجريبي مؤقت
-      // لاحقًا سنربطه مع Google Apps Script
-
-      const nowText = formatRiyadhTime(new Date());
-
-      const fakeEmployee = {
-        fullName: 'موظف تجريبي',
-        nationalId: raw,
-        employeeId: 'EMP-001',
-        department: 'الإدارة العامة',
-        action: guessActionByDemo(raw),
-        duration: guessDurationByDemo(raw),
-        late: raw.endsWith('9'),
-        earlyLeave: raw.endsWith('8')
-      };
-
-      renderDemoResult(fakeEmployee, nowText);
-    }
-
-    function guessActionByDemo(raw){
-      const lastDigit = raw.slice(-1);
-      if(['0','1','2','3'].includes(lastDigit)) return 'checkin';
-      if(['4','5','6','7'].includes(lastDigit)) return 'checkout';
-      if(lastDigit === '8') return 'early_leave';
-      return 'late_checkin';
-    }
-
-    function guessDurationByDemo(raw){
-      const lastDigit = parseInt(raw.slice(-1), 10);
-      if(isNaN(lastDigit)) return '---';
-      const hours = (lastDigit % 6) + 1;
-      const mins = (lastDigit * 7) % 60;
-      return `${hours} ساعة و ${mins} دقيقة`;
-    }
-
-    function renderDemoResult(emp, timeText){
-      empName.textContent = emp.fullName;
-      empNid.textContent = emp.nationalId;
-      empId.textContent = emp.employeeId;
-      empDept.textContent = emp.department;
-      empTime.textContent = timeText;
-      empDuration.textContent = emp.duration || '---';
-
-      if(emp.action === 'checkin'){
-        setMessage('success', `تم تسجيل الدخول بنجاح الساعة ${timeText}`);
-        setBadges([
-          { text:'تسجيل دخول', className:'badge-success' },
-          { text:'في الوقت الطبيعي', className:'badge-info' }
-        ]);
-        playBeep('success');
-      }
-      else if(emp.action === 'late_checkin'){
-        setMessage('danger', `تم تسجيل دخول متأخر الساعة ${timeText}`);
-        setBadges([
-          { text:'دخول متأخر', className:'badge-danger' },
-          { text:'تجريبي', className:'badge-warning' }
-        ]);
-        playBeep('error');
-      }
-      else if(emp.action === 'checkout'){
-        setMessage('info', `تم التعرف على الموظف، وهو الآن في وضع تسجيل الخروج الساعة ${timeText}`);
-        setBadges([
-          { text:'تسجيل خروج', className:'badge-info' },
-          { text:'دوام مكتمل', className:'badge-success' }
-        ]);
-        playBeep('warning');
-      }
-      else if(emp.action === 'early_leave'){
-        setMessage('warning', `تم التعرف على الموظف، وهذا خروج مبكر الساعة ${timeText}`);
-        setBadges([
-          { text:'خروج مبكر', className:'badge-warning' },
-          { text:'يحتاج تأكيد', className:'badge-danger' }
-        ]);
-        playBeep('warning');
+    async function handleScannedCode(raw){
+      try{
+        const nationalId = String(raw || '').trim();
+        if (!nationalId) return;
+        setMessage('info', 'جارٍ التحقق من بيانات الموظف...');
+        const result = await callAttendanceApi('scan', nationalId);
+        renderApiResult(result);
+      }catch(error){
+        console.error(error);
+        setMessage('danger', 'حدث خطأ أثناء الاتصال بالخادم');
+        setBadges([{ text:'خطأ اتصال', className:'badge-danger' }]);
+        playBeep('danger'); fireFrameFlash('danger');
       }
     }
 
     btnStart.addEventListener('click', startCamera);
-    btnStop.addEventListener('click', stopCamera);
-    btnReset.addEventListener('click', resetScreen);
+    btnStop.addEventListener('click', function(){ stopCamera(); });
+    btnReset.addEventListener('click', function(){ resetScreen(); resetButtonStates(); btnReset.classList.add('is-active'); if (stream) stopCamera(); });
 
-    initTones();
+    document.getElementById('btnConfirmCheckout').addEventListener('click', async function(){
+      if (!pendingCheckoutNid) return;
+      try{
+        setMessage('info', 'جارٍ تسجيل الخروج...');
+        const result = await callAttendanceApi('confirm_checkout', pendingCheckoutNid);
+        renderApiResult(result);
+      }catch(error){
+        console.error(error);
+        setMessage('danger', 'حدث خطأ أثناء تأكيد الخروج');
+        setBadges([{ text:'خطأ اتصال', className:'badge-danger' }]);
+        playBeep('danger'); fireFrameFlash('danger');
+      }
+    });
+
+    document.getElementById('btnCancelCheckout').addEventListener('click', function(){
+      hideConfirmBar();
+      setMessage('info', 'تم إلغاء عملية تسجيل الخروج');
+      setBadges([{ text:'تم الإلغاء', className:'badge-info' }]);
+      playBeep('info'); fireFrameFlash('info');
+    });
+
     updateClock();
     setInterval(updateClock, 1000);
     resetScreen();
