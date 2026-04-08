@@ -235,15 +235,29 @@
       empDuration.textContent = workDuration || '---';
     }
 
-    async function callAttendanceApi(action, nationalId){
-      const res = await fetch(GAS_WEBAPP_URL, {
-        method: 'POST',
-        headers: { 'Content-Type':'application/json' },
-        body: JSON.stringify({ action, nationalId })
-      });
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      return await res.json();
-    }
+   async function callAttendanceApi(action, nationalId){
+  const payload = JSON.stringify({ action, nationalId });
+
+  const res = await fetch(GAS_WEBAPP_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8'
+    },
+    body: payload
+  });
+
+  const text = await res.text();
+
+  if (!res.ok) {
+    throw new Error('HTTP ' + res.status + ' | ' + text);
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    throw new Error('Invalid JSON response: ' + text);
+  }
+}
 
     function renderApiResult(result){
       hideConfirmBar();
