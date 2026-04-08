@@ -26,6 +26,7 @@
     .frame-flash.info{border-color:var(--frame-info);box-shadow:0 0 18px var(--frame-info), inset 0 0 18px var(--frame-info)}
     .frame-flash.warning{border-color:var(--frame-warning);box-shadow:0 0 18px var(--frame-warning), inset 0 0 18px var(--frame-warning)}
     @keyframes frameFlash{0%{opacity:0}8%{opacity:1}24%{opacity:.16}40%{opacity:1}56%{opacity:.20}72%{opacity:.9}100%{opacity:0}}
+
     .wrap{width:min(980px,94%);margin:0 auto}
     .shell{background:var(--white);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;border:1px solid #d7ebe2}
     .hero-top{background:linear-gradient(90deg,var(--green-dark) 0%,var(--green-main) 58%,var(--green-light) 100%);position:relative;overflow:hidden;padding:16px 18px}
@@ -42,14 +43,34 @@
     .clock{font-size:24px;font-weight:800;line-height:1.1;letter-spacing:1px}
     .dayline{font-size:13px;font-weight:700;margin-top:6px}
     .dates{font-size:11px;line-height:1.8;margin-top:4px;opacity:.98}
+
     .content{padding:16px;background:#f5fbf8}
     .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
     .card{background:#fff;border-radius:18px;padding:14px;box-shadow:0 6px 16px rgba(0,0,0,.05);border:1px solid #deeee7}
     .card h2{margin:0 0 10px 0;font-size:16px;color:var(--green-dark);font-weight:800}
+
     .video-wrap{position:relative;border-radius:16px;overflow:hidden;background:#0d0d0d;border:2px solid #d9ebe4;min-height:320px;display:flex;align-items:center;justify-content:center}
+    .video-wrap.locked{border-color:#7ac9aa;box-shadow:0 0 0 3px rgba(23,120,90,.12) inset}
     video{width:100%;height:100%;object-fit:cover;background:#000;display:block}
     canvas{display:none}
     .video-placeholder{color:#fff;text-align:center;padding:18px;font-size:14px;line-height:1.9;opacity:.92}
+
+    .scan-overlay{
+      position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+      background:rgba(8,25,20,.42);color:#fff;text-align:center;padding:16px;z-index:5
+    }
+    .scan-overlay.show{display:flex}
+    .scan-overlay-box{
+      background:rgba(255,255,255,.10);backdrop-filter:blur(2px);border:1px solid rgba(255,255,255,.18);
+      border-radius:16px;padding:14px 16px;min-width:220px
+    }
+    .scan-overlay-title{font-size:15px;font-weight:800;line-height:1.8}
+    .scan-overlay-sub{font-size:12px;opacity:.95;line-height:1.8}
+    .mini-spin{
+      width:22px;height:22px;border:3px solid rgba(255,255,255,.28);border-top-color:#fff;border-radius:50%;
+      margin:0 auto 10px;animation:spin .75s linear infinite
+    }
+
     .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;justify-content:center}
     .btn{border:0;border-radius:12px;min-height:38px;padding:8px 12px;cursor:pointer;font-size:13px;font-weight:800;transition:.15s ease;box-shadow:0 6px 14px rgba(0,0,0,.06);display:inline-flex;align-items:center;justify-content:center;gap:7px}
     .btn:hover{transform:translateY(-1px)}
@@ -57,27 +78,33 @@
     .btn-main{background:linear-gradient(180deg,var(--green-main),var(--green-dark));color:#fff}
     .btn-secondary{background:#e5f4ee;color:var(--green-dark);border:1px solid #cde7dc}
     .btn-danger{background:#f9e5e5;color:var(--danger);border:1px solid #efc5c5}
+
     .message-box{min-height:90px;border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.9;font-size:15px;font-weight:800;background:#eef6f2;color:var(--green-dark);border:2px dashed #cfe5da;white-space:pre-wrap}
     .msg-success{background:#e9f7ef;color:var(--success);border:2px solid #bde1c8}
     .msg-danger{background:#fdecec;color:var(--danger);border:2px solid #f0c1c1}
     .msg-warning{background:#fff3e6;color:var(--warning);border:2px solid #f4d2ae}
     .msg-info{background:#ebf3fd;color:var(--info);border:2px solid #c2d9f7}
+
     .summary-card{margin-top:12px;border-radius:16px;padding:14px;background:linear-gradient(180deg,#fbfefd,#edf8f3);border:1px solid #d3e9de;min-height:160px}
     .summary-title{margin:0 0 10px;font-size:15px;color:var(--green-dark);font-weight:800;text-align:center}
     .summary-grid{display:grid;grid-template-columns:1fr;gap:8px}
     .info-item{background:#fff;border-radius:12px;border:1px solid #dfefe8;padding:10px 12px;min-height:56px}
     .info-item .label{color:#6a8a7c;font-size:11px;font-weight:700;margin-bottom:2px}
     .info-item .value{color:var(--text-dark);font-size:13px;font-weight:800;line-height:1.7;word-break:break-word}
+
     .status-badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px}
     .badge{padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
     .badge-success{background:#e7f6ee;color:var(--success);border:1px solid #b9e0c8}
     .badge-danger{background:#fdecec;color:var(--danger);border:1px solid #f1c2c2}
     .badge-warning{background:#fff4e6;color:var(--warning);border:1px solid #f5d4af}
     .badge-info{background:#edf4ff;color:var(--info);border:1px solid #c8dafb}
+
     .hint-box{margin-top:10px;border-radius:14px;background:#f7fbf9;border:1px dashed #cfe2d9;padding:12px;font-size:12px;line-height:1.9;color:#4d6e61;text-align:right}
     .hidden{display:none!important}
     .footer{position:fixed;right:0;left:0;bottom:0;background:linear-gradient(90deg,var(--green-dark),var(--green-main));color:#fff;text-align:center;padding:8px 10px;z-index:30;box-shadow:0 -6px 18px rgba(0,0,0,.12)}
     .footer div{font-size:12px;font-weight:700;line-height:1.6}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
     @media (max-width:900px){.grid{grid-template-columns:1fr}.time-panel{width:100%}.hero-head{justify-content:center}.brand{justify-content:center}.title-block{text-align:center}}
     @media (max-width:640px){.brand img{width:128px}.title-block h1{font-size:18px}.clock{font-size:22px}.video-wrap{min-height:260px}}
   </style>
@@ -111,12 +138,20 @@
             <div class="card">
               <h2>الكاميرا والمسح</h2>
 
-              <div class="video-wrap">
+              <div id="videoWrap" class="video-wrap">
                 <video id="video" class="hidden" playsinline autoplay muted></video>
                 <canvas id="canvas"></canvas>
                 <div id="videoPlaceholder" class="video-placeholder">
                   الكاميرا غير مفعلة حاليًا<br>
                   اضغط على زر تشغيل الكاميرا لبدء المسح
+                </div>
+
+                <div id="scanOverlay" class="scan-overlay">
+                  <div class="scan-overlay-box">
+                    <div class="mini-spin"></div>
+                    <div class="scan-overlay-title">تم التقاط الرمز</div>
+                    <div class="scan-overlay-sub">جارٍ معالجة العملية... تم إيقاف الاستشعار مؤقتًا</div>
+                  </div>
                 </div>
               </div>
 
@@ -127,7 +162,7 @@
               </div>
 
               <div class="hint-box">
-                الرابط الحالي للويب آب مضبوط على Apps Script. إذا غيّرت النشر لاحقًا، حدّث المتغير GAS_WEBAPP_URL.
+                بمجرد التقاط رمز الموظف يتوقف الاستشعار مباشرة، وتبقى النتيجة ثابتة حتى تضغط "مسح جديد".
               </div>
             </div>
 
@@ -177,8 +212,6 @@
     <div>أ. محمد بن عبدالعزيز العباد 0563660366</div>
   </footer>
 
-  alert('نسخة جديدة من الكشك');
-  
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 
   <script>
@@ -189,6 +222,8 @@
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     const videoPlaceholder = document.getElementById('videoPlaceholder');
+    const videoWrap = document.getElementById('videoWrap');
+    const scanOverlay = document.getElementById('scanOverlay');
 
     const btnStart = document.getElementById('btnStart');
     const btnReset = document.getElementById('btnReset');
@@ -206,9 +241,9 @@
     let stream = null;
     let scanning = false;
     let rafId = null;
-    let lastCode = '';
-    let lastCodeAt = 0;
+    let scanLocked = false;
     let pendingCheckoutNid = '';
+    let processingRequest = false;
 
     function playBeep(type='success'){
       try{
@@ -289,13 +324,39 @@
       btnReset.classList.remove('is-active');
     }
 
+    function showScanOverlay(show){
+      scanOverlay.classList.toggle('show', !!show);
+      videoWrap.classList.toggle('locked', !!show);
+    }
+
+    function hardLockScanning(){
+      scanLocked = true;
+      scanning = false;
+      if (rafId){
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+      showScanOverlay(true);
+    }
+
+    function unlockScanning(){
+      scanLocked = false;
+      processingRequest = false;
+      showScanOverlay(false);
+    }
+
     function resetScreen(){
       clearSummary();
       hideConfirmBar();
+      unlockScanning();
       setMessage('info', 'تمت تهيئة الشاشة لاستقبال موظف جديد');
-      lastCode = '';
-      lastCodeAt = 0;
       resetButtonStates();
+
+      if (stream){
+        scanning = true;
+        btnStart.classList.add('is-active');
+        scanLoop();
+      }
     }
 
     function showConfirmBar(nid){
@@ -337,8 +398,6 @@
     }
 
     function renderApiResult(result){
-      hideConfirmBar();
-
       if (result.employee) {
         fillSummaryFromApi(result.employee, result.time || '---', result.workDuration || '---');
       }
@@ -381,6 +440,12 @@
         playBeep('warning'); fireFrameFlash('warning'); return;
       }
 
+      if (result.action === 'duplicate_recent') {
+        setMessage('info', result.message || 'تم تجاهل القراءة المكررة');
+        setBadges([{ text:'قراءة مكررة', className:'badge-info' }]);
+        playBeep('info'); fireFrameFlash('info'); return;
+      }
+
       if (result.action === 'already_completed') {
         setMessage('danger', result.message || 'تم تسجيل الحضور والانصراف مسبقًا لهذا اليوم');
         setBadges([{ text:'تم مسبقًا', className:'badge-danger' }]);
@@ -406,19 +471,34 @@
 
     async function startCamera(){
       try{
-        if(stream){ btnStart.classList.add('is-active'); return; }
+        if(stream){
+          resetButtonStates();
+          btnStart.classList.add('is-active');
+          if (!scanLocked && !processingRequest) {
+            scanning = true;
+            scanLoop();
+          }
+          return;
+        }
+
         stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
         video.srcObject = stream;
         await video.play();
+
         video.classList.remove('hidden');
         videoPlaceholder.classList.add('hidden');
+
         canvas.width = video.videoWidth || 1280;
         canvas.height = video.videoHeight || 720;
-        setMessage('success', 'تم تشغيل الكاميرا بنجاح، وجارٍ انتظار رمز الموظف');
-        playBeep('success');
+
+        unlockScanning();
         scanning = true;
+
         resetButtonStates();
         btnStart.classList.add('is-active');
+
+        setMessage('success', 'تم تشغيل الكاميرا بنجاح، وجارٍ انتظار رمز الموظف');
+        playBeep('success');
         scanLoop();
       }catch(error){
         setMessage('danger', 'تعذر تشغيل الكاميرا: ' + error.message);
@@ -428,8 +508,16 @@
 
     function stopCamera(){
       scanning = false;
-      if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
-      if(stream){ stream.getTracks().forEach(track => track.stop()); stream = null; }
+      if(rafId){
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+      if(stream){
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+      }
+
+      unlockScanning();
       video.srcObject = null;
       video.classList.add('hidden');
       videoPlaceholder.classList.remove('hidden');
@@ -439,8 +527,10 @@
     }
 
     function scanLoop(){
-      if(!scanning) return;
+      if(!scanning || scanLocked || processingRequest) return;
+
       rafId = requestAnimationFrame(scanLoop);
+
       if(video.readyState !== video.HAVE_ENOUGH_DATA) return;
 
       if(canvas.width !== video.videoWidth || canvas.height !== video.videoHeight){
@@ -454,10 +544,10 @@
 
       if(code && code.data){
         const raw = String(code.data).trim();
-        const now = Date.now();
-        if(raw === lastCode && (now - lastCodeAt) < 2500) return;
-        lastCode = raw;
-        lastCodeAt = now;
+        if (!raw) return;
+
+        processingRequest = true;
+        hardLockScanning();
         handleScannedCode(raw);
       }
     }
@@ -465,38 +555,63 @@
     async function handleScannedCode(raw){
       try{
         const nationalId = String(raw || '').trim();
-        if (!nationalId) return;
-        setMessage('info', 'جارٍ التحقق من بيانات الموظف...');
+        if (!nationalId) {
+          processingRequest = false;
+          unlockScanning();
+          return;
+        }
+
+        setMessage('info', 'تم التقاط الرمز، جارٍ التحقق من بيانات الموظف...');
         const result = await callAttendanceApi('scan', nationalId);
         renderApiResult(result);
+
       }catch(error){
         console.error(error);
         setMessage('danger', 'حدث خطأ أثناء الاتصال بالخادم\n' + (error.message || ''));
         setBadges([{ text:'خطأ اتصال', className:'badge-danger' }]);
         playBeep('danger'); fireFrameFlash('danger');
+      } finally {
+        processingRequest = false;
       }
     }
 
     btnStart.addEventListener('click', startCamera);
-    btnStop.addEventListener('click', function(){ stopCamera(); });
+
+    btnStop.addEventListener('click', function(){
+      stopCamera();
+    });
+
     btnReset.addEventListener('click', function(){
-      resetScreen();
-      resetButtonStates();
-      btnReset.classList.add('is-active');
-      if (stream) stopCamera();
+      if (stream){
+        resetScreen();
+      } else {
+        clearSummary();
+        hideConfirmBar();
+        unlockScanning();
+        resetButtonStates();
+        btnReset.classList.add('is-active');
+        setMessage('info', 'تمت تهيئة الشاشة لاستقبال موظف جديد');
+      }
     });
 
     document.getElementById('btnConfirmCheckout').addEventListener('click', async function(){
       if (!pendingCheckoutNid) return;
+
+      processingRequest = true;
+      hardLockScanning();
+
       try{
         setMessage('info', 'جارٍ تسجيل الخروج...');
         const result = await callAttendanceApi('confirm_checkout', pendingCheckoutNid);
+        hideConfirmBar();
         renderApiResult(result);
       }catch(error){
         console.error(error);
         setMessage('danger', 'حدث خطأ أثناء تأكيد الخروج\n' + (error.message || ''));
         setBadges([{ text:'خطأ اتصال', className:'badge-danger' }]);
         playBeep('danger'); fireFrameFlash('danger');
+      } finally {
+        processingRequest = false;
       }
     });
 
