@@ -13,355 +13,87 @@
 
   <style>
     :root{
-      --bg1:#f3faf6;
-      --bg2:#edf7f0;
-      --card:#ffffff;
-      --green-dark:#0f5132;
-      --green:#1e7b58;
-      --green-light:#dff3e8;
-      --border:#d8e8de;
-      --text:#16372b;
-      --muted:#60796d;
-      --danger:#c0392b;
-      --warning:#b7791f;
-      --info:#1d5fa8;
-      --success:#21c36f;
-      --shadow:0 12px 30px rgba(16,54,39,.10);
-      --radius:22px;
+      --bg1:#f3faf6; --bg2:#edf7f0; --card:#ffffff; --green-dark:#0f5132; --green:#1e7b58;
+      --border:#d8e8de; --text:#16372b; --muted:#60796d; --shadow:0 12px 30px rgba(16,54,39,.10);
+      --danger:#c0392b; --warning:#b7791f; --info:#1d5fa8;
     }
-
     *{box-sizing:border-box}
-
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family:'Cairo',sans-serif;
-      background:linear-gradient(180deg,var(--bg1),var(--bg2));
-      color:var(--text);
-      padding:18px;
-      overflow-x:hidden;
+    body{margin:0;min-height:100vh;font-family:'Cairo',sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text);padding:18px;overflow-x:hidden}
+    .flash-layer{
+      position:fixed; inset:0; pointer-events:none; opacity:0; z-index:9999;
+      background:transparent;
     }
-
-    .flash-frame{
-      position:fixed;
-      inset:10px;
-      border:10px solid transparent;
-      border-radius:26px;
-      pointer-events:none;
-      opacity:0;
-      z-index:9999;
-      box-shadow:0 0 0 4px rgba(255,255,255,.15) inset;
-    }
-
-    .flash-frame.active{
-      animation:flashFrame 3s ease;
-    }
-
-    .flash-success{ border-color:#37ff8b; }
-    .flash-error{ border-color:#ff4d4f; }
-    .flash-info{ border-color:#42a5ff; }
-    .flash-warning{ border-color:#ffb020; }
-
-    @keyframes flashFrame{
+    .flash-layer.active{ animation:fullFlash 2.4s ease-out; }
+    .flash-success{ background:rgba(57, 255, 20, 0.17); }
+    .flash-error{ background:rgba(255, 50, 50, 0.16); }
+    .flash-info{ background:rgba(66, 165, 255, 0.16); }
+    .flash-warning{ background:rgba(255, 208, 0, 0.16); }
+    @keyframes fullFlash{
       0%{opacity:0}
-      10%{opacity:1}
-      20%{opacity:.2}
-      30%{opacity:1}
-      40%{opacity:.2}
-      50%{opacity:1}
+      8%{opacity:1}
+      16%{opacity:.15}
+      24%{opacity:1}
+      32%{opacity:.12}
+      40%{opacity:.8}
       100%{opacity:0}
     }
 
-    .shell{
-      max-width:980px;
-      margin:0 auto;
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:28px;
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      min-height:calc(100vh - 36px);
-      display:flex;
-      flex-direction:column;
-    }
-
-    .header{
-      padding:18px 18px 8px;
-      text-align:center;
-    }
-
-    .logo{
-      width:110px;
-      max-width:35vw;
-      height:auto;
-      display:block;
-      margin:0 auto 10px;
-    }
-
-    .title{
-      margin:0;
-      font-size:20px;
-      color:var(--green-dark);
-      font-weight:700;
-    }
-
-    .datebar{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:10px;
-      padding:8px 18px 14px;
-    }
-
-    .mini-card{
-      background:#fbfefd;
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:10px 12px;
-      text-align:center;
-    }
-
-    .mini-label{
-      font-size:12px;
-      color:var(--muted);
-      margin-bottom:4px;
-      font-weight:700;
-    }
-
-    .mini-value{
-      font-size:15px;
-      font-weight:700;
-      color:var(--green-dark);
-    }
-
-    .clock .mini-value{
-      font-size:20px;
-      letter-spacing:.5px;
-    }
-
-    .content{
-      display:grid;
-      grid-template-columns:1.2fr .9fr;
-      gap:16px;
-      padding:0 18px 18px;
-      flex:1;
-    }
-
-    .panel{
-      background:#fbfefd;
-      border:1px solid var(--border);
-      border-radius:22px;
-      overflow:hidden;
-      position:relative;
-    }
-
-    .panel-head{
-      padding:12px 14px;
-      border-bottom:1px solid #e6f0ea;
-      background:linear-gradient(180deg,#fbfefd,#f6fbf8);
-      font-size:14px;
-      font-weight:700;
-      color:var(--green-dark);
-    }
-
-    .camera-wrap{
-      padding:14px;
-      position:relative;
-    }
-
+    .shell{max-width:980px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:28px;box-shadow:var(--shadow);overflow:hidden;min-height:calc(100vh - 36px);display:flex;flex-direction:column}
+    .header{padding:18px 18px 8px;text-align:center}
+    .logo{width:110px;max-width:35vw;height:auto;display:block;margin:0 auto 10px}
+    .title{margin:0;font-size:20px;color:var(--green-dark);font-weight:700}
+    .datebar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:8px 18px 14px}
+    .mini-card{background:#fbfefd;border:1px solid var(--border);border-radius:18px;padding:10px 12px;text-align:center}
+    .mini-label{font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:700}
+    .mini-value{font-size:15px;font-weight:700;color:var(--green-dark)}
+    .clock .mini-value{font-size:20px;letter-spacing:.5px}
+    .content{display:grid;grid-template-columns:1.2fr .9fr;gap:16px;padding:0 18px 18px;flex:1}
+    .panel{background:#fbfefd;border:1px solid var(--border);border-radius:22px;overflow:hidden;position:relative}
+    .panel-head{padding:12px 14px;border-bottom:1px solid #e6f0ea;background:linear-gradient(180deg,#fbfefd,#f6fbf8);font-size:14px;font-weight:700;color:var(--green-dark)}
+    .camera-wrap{padding:14px;position:relative}
     #reader{
-      width:100%;
-      min-height:420px;
-      border:1px dashed #c9ddd1;
-      border-radius:18px;
-      overflow:hidden;
-      background:#eff7f2;
+      width:100%; min-height:420px; border:none; border-radius:18px; overflow:hidden; background:#eff7f2;
     }
-
-    .overlay{
-      position:absolute;
-      inset:14px;
-      border-radius:18px;
-      background:rgba(15,81,50,.74);
-      color:#fff;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:22px;
-      z-index:20;
-    }
-
-    .overlay.show{
-      display:flex;
-    }
-
-    .overlay-box{
-      max-width:320px;
-    }
-
-    .overlay-title{
-      font-size:18px;
-      font-weight:700;
-      margin-bottom:6px;
-    }
-
-    .overlay-sub{
-      font-size:14px;
-      opacity:.95;
-    }
-
-    .controls{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      padding:0 14px 14px;
-    }
-
-    .btn{
-      border:none;
-      border-radius:14px;
-      min-height:42px;
-      padding:0 16px;
-      font-family:'Cairo',sans-serif;
-      font-size:14px;
-      font-weight:700;
-      cursor:pointer;
-      transition:.18s ease;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-    }
-
+    #reader video{ object-fit:cover !important; width:100% !important; height:100% !important; border-radius:18px !important; }
+    #reader img{ display:none !important; }
+    #reader__scan_region, #reader__scan_region img, #reader__dashboard_section, #reader__dashboard{ background:transparent !important; }
+    #reader__dashboard{ display:none !important; }
+    .overlay{position:absolute;inset:14px;border-radius:18px;background:rgba(15,81,50,.74);color:#fff;display:none;align-items:center;justify-content:center;text-align:center;padding:22px;z-index:20}
+    .overlay.show{display:flex}
+    .overlay-box{max-width:320px}
+    .overlay-title{font-size:18px;font-weight:700;margin-bottom:6px}
+    .overlay-sub{font-size:14px;opacity:.95}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;padding:0 14px 14px}
+    .btn{border:none;border-radius:14px;min-height:42px;padding:0 16px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:.18s ease;display:inline-flex;align-items:center;justify-content:center;gap:8px}
     .btn:hover{transform:translateY(-1px)}
     .btn:active{transform:translateY(1px)}
-
     .btn-primary{background:var(--green);color:#fff}
     .btn-danger{background:#c0392b;color:#fff}
     .btn-secondary{background:#eaf3ee;color:var(--green-dark)}
-
-    .btn.active{
-      box-shadow:0 0 0 3px rgba(30,123,88,.16) inset;
-      filter:brightness(.96);
-    }
-
-    .status-panel{
-      padding:14px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-
-    .msg-box{
-      border-radius:18px;
-      border:1px solid var(--border);
-      padding:14px;
-      min-height:120px;
-      background:#fff;
-    }
-
-    .msg-type{
-      display:inline-block;
-      padding:4px 10px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:700;
-      margin-bottom:8px;
-    }
-
+    .btn.active{box-shadow:0 0 0 3px rgba(30,123,88,.16) inset;filter:brightness(.96)}
+    .status-panel{padding:14px;display:flex;flex-direction:column;gap:12px}
+    .msg-box{border-radius:18px;border:1px solid var(--border);padding:14px;min-height:120px;background:#fff}
+    .msg-type{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;margin-bottom:8px}
     .type-success{background:#e7faef;color:#137c45}
     .type-error{background:#fdecea;color:#b42318}
     .type-warning{background:#fff4df;color:#9a6700}
     .type-info{background:#e9f2ff;color:#1d5fa8}
-
-    .main-message{
-      font-size:18px;
-      font-weight:700;
-      margin-bottom:10px;
-      color:var(--green-dark);
-    }
-
-    .sub-message{
-      font-size:14px;
-      color:var(--muted);
-      line-height:1.9;
-    }
-
-    .result-grid{
-      margin-top:12px;
-      display:grid;
-      grid-template-columns:115px 1fr;
-      gap:8px 10px;
-      font-size:14px;
-    }
-
-    .result-grid .k{
-      color:var(--muted);
-      font-weight:700;
-    }
-
-    .result-grid .v{
-      font-weight:700;
-    }
-
-    .confirm-box{
-      display:none;
-      border:1px solid #f2d59f;
-      background:#fff9ed;
-      border-radius:18px;
-      padding:14px;
-    }
-
+    .main-message{font-size:18px;font-weight:700;margin-bottom:10px;color:var(--green-dark)}
+    .sub-message{font-size:14px;color:var(--muted);line-height:1.9}
+    .result-grid{margin-top:12px;display:grid;grid-template-columns:115px 1fr;gap:8px 10px;font-size:14px}
+    .result-grid .k{color:var(--muted);font-weight:700}
+    .result-grid .v{font-weight:700}
+    .confirm-box{display:none;border:1px solid #f2d59f;background:#fff9ed;border-radius:18px;padding:14px}
     .confirm-box.show{display:block}
-
-    .confirm-title{
-      font-size:16px;
-      font-weight:700;
-      color:#8a5b00;
-      margin-bottom:10px;
-    }
-
-    .confirm-actions{
-      display:flex;
-      gap:10px;
-      margin-top:12px;
-      flex-wrap:wrap;
-    }
-
-    .footer{
-      border-top:1px solid var(--border);
-      padding:12px 14px;
-      text-align:center;
-      background:#f8fcf9;
-      font-size:12px;
-      line-height:1.8;
-      color:#47695c;
-    }
-
-    @media (max-width:860px){
-      .content{
-        grid-template-columns:1fr;
-      }
-      .datebar{
-        grid-template-columns:repeat(2,1fr);
-      }
-      #reader{
-        min-height:320px;
-      }
-    }
-
-    @media (max-width:520px){
-      .datebar{
-        grid-template-columns:1fr 1fr;
-      }
-      .main-message{
-        font-size:17px;
-      }
-    }
+    .confirm-title{font-size:16px;font-weight:700;color:#8a5b00;margin-bottom:10px}
+    .confirm-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+    .footer{border-top:1px solid var(--border);padding:12px 14px;text-align:center;background:#f8fcf9;font-size:12px;line-height:1.8;color:#47695c}
+    @media (max-width:860px){.content{grid-template-columns:1fr}.datebar{grid-template-columns:repeat(2,1fr)}#reader{min-height:320px}}
+    @media (max-width:520px){.datebar{grid-template-columns:1fr 1fr}.main-message{font-size:17px}}
   </style>
 </head>
 <body>
-  <div id="flashFrame" class="flash-frame"></div>
+  <div id="flashLayer" class="flash-layer"></div>
 
   <div class="shell">
     <div class="header">
@@ -370,22 +102,10 @@
     </div>
 
     <div class="datebar">
-      <div class="mini-card clock">
-        <div class="mini-label">الوقت</div>
-        <div id="clockValue" class="mini-value">--:--:--</div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">اليوم</div>
-        <div id="dayValue" class="mini-value">-</div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">التاريخ الميلادي</div>
-        <div id="gregValue" class="mini-value">-</div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">التاريخ الهجري</div>
-        <div id="hijriValue" class="mini-value">-</div>
-      </div>
+      <div class="mini-card clock"><div class="mini-label">الوقت</div><div id="clockValue" class="mini-value">--:--:--</div></div>
+      <div class="mini-card"><div class="mini-label">اليوم</div><div id="dayValue" class="mini-value">-</div></div>
+      <div class="mini-card"><div class="mini-label">التاريخ الميلادي</div><div id="gregValue" class="mini-value">-</div></div>
+      <div class="mini-card"><div class="mini-label">التاريخ الهجري</div><div id="hijriValue" class="mini-value">-</div></div>
     </div>
 
     <div class="content">
@@ -393,7 +113,6 @@
         <div class="panel-head">الكاميرا</div>
         <div class="camera-wrap">
           <div id="reader"></div>
-
           <div id="scanOverlay" class="overlay">
             <div class="overlay-box">
               <div class="overlay-title">تم التقاط الرمز</div>
@@ -401,7 +120,6 @@
             </div>
           </div>
         </div>
-
         <div class="controls">
           <button id="startBtn" class="btn btn-primary">تشغيل الكاميرا</button>
           <button id="stopBtn" class="btn btn-danger">إيقاف الكاميرا</button>
@@ -450,29 +168,21 @@
   </div>
 
   <script>
-    /***************************************
-     * الإعدادات
-     ***************************************/
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxeTix9fFV_A3Bbn24unLMrP8pzfRTcDC58Yengw3Lc5X_oSO83XzK8IrjxPPYtaSpI/exec";
     const TIMEZONE = "Asia/Riyadh";
-    const LOCALE_AR = "ar-SA";
+    const AR_LOCALE = "ar-SA-u-nu-latn";
 
-    /***************************************
-     * حالة التطبيق
-     ***************************************/
     let html5QrCode = null;
     let cameraRunning = false;
     let scanLocked = false;
     let isProcessing = false;
-    let lastScannedText = "";
     let pendingCheckoutNationalId = "";
-    let activeCameraId = null;
 
     const startBtn = document.getElementById("startBtn");
     const stopBtn = document.getElementById("stopBtn");
     const resetBtn = document.getElementById("resetBtn");
     const scanOverlay = document.getElementById("scanOverlay");
-    const flashFrame = document.getElementById("flashFrame");
+    const flashLayer = document.getElementById("flashLayer");
 
     const msgType = document.getElementById("msgType");
     const mainMessage = document.getElementById("mainMessage");
@@ -493,86 +203,42 @@
     const confirmBtn = document.getElementById("confirmBtn");
     const cancelBtn = document.getElementById("cancelBtn");
 
-    /***************************************
-     * التاريخ والوقت
-     ***************************************/
     function updateClock(){
       const now = new Date();
-
       document.getElementById("clockValue").textContent =
-        new Intl.DateTimeFormat(LOCALE_AR, {
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: false,
-          timeZone: TIMEZONE
-        }).format(now);
-
+        new Intl.DateTimeFormat(AR_LOCALE, {hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false, timeZone: TIMEZONE}).format(now);
       document.getElementById("dayValue").textContent =
-        new Intl.DateTimeFormat(LOCALE_AR, {
-          weekday: 'long',
-          timeZone: TIMEZONE
-        }).format(now);
-
+        new Intl.DateTimeFormat("ar-SA", {weekday:'long', timeZone: TIMEZONE}).format(now);
       document.getElementById("gregValue").textContent =
-        new Intl.DateTimeFormat(LOCALE_AR, {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-          calendar: 'gregory',
-          timeZone: TIMEZONE
-        }).format(now);
-
+        new Intl.DateTimeFormat(AR_LOCALE, {year:'numeric', month:'2-digit', day:'2-digit', calendar:'gregory', timeZone: TIMEZONE}).format(now);
       document.getElementById("hijriValue").textContent =
-        new Intl.DateTimeFormat(LOCALE_AR + "-u-ca-islamic", {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-          timeZone: TIMEZONE
-        }).format(now);
+        new Intl.DateTimeFormat("ar-SA-u-ca-islamic-nu-latn", {year:'numeric', month:'2-digit', day:'2-digit', timeZone: TIMEZONE}).format(now);
     }
-
     setInterval(updateClock, 1000);
     updateClock();
 
-    /***************************************
-     * الواجهة
-     ***************************************/
-    function showOverlay(show){
-      scanOverlay.classList.toggle("show", !!show);
-    }
-
+    function showOverlay(show){ scanOverlay.classList.toggle("show", !!show); }
     function setButtonsState(){
       startBtn.classList.toggle("active", cameraRunning);
       stopBtn.classList.toggle("active", !cameraRunning && (html5QrCode !== null));
     }
 
     function flash(type){
-      flashFrame.className = "flash-frame";
-      if(type === "success") flashFrame.classList.add("flash-success");
-      else if(type === "error") flashFrame.classList.add("flash-error");
-      else if(type === "warning") flashFrame.classList.add("flash-warning");
-      else flashFrame.classList.add("flash-info");
-
-      void flashFrame.offsetWidth;
-      flashFrame.classList.add("active");
+      flashLayer.className = "flash-layer";
+      if(type === "success") flashLayer.classList.add("flash-success");
+      else if(type === "error") flashLayer.classList.add("flash-error");
+      else if(type === "warning") flashLayer.classList.add("flash-warning");
+      else flashLayer.classList.add("flash-info");
+      void flashLayer.offsetWidth;
+      flashLayer.classList.add("active");
     }
 
     function setMessage(type, title, details){
       msgType.className = "msg-type";
-      if(type === "success"){
-        msgType.classList.add("type-success");
-        msgType.textContent = "نجاح";
-      }else if(type === "error"){
-        msgType.classList.add("type-error");
-        msgType.textContent = "خطأ";
-      }else if(type === "warning"){
-        msgType.classList.add("type-warning");
-        msgType.textContent = "تنبيه";
-      }else{
-        msgType.classList.add("type-info");
-        msgType.textContent = "معلومة";
-      }
+      if(type === "success"){ msgType.classList.add("type-success"); msgType.textContent = "نجاح"; }
+      else if(type === "error"){ msgType.classList.add("type-error"); msgType.textContent = "خطأ"; }
+      else if(type === "warning"){ msgType.classList.add("type-warning"); msgType.textContent = "تنبيه"; }
+      else { msgType.classList.add("type-info"); msgType.textContent = "معلومة"; }
 
       mainMessage.textContent = title || "";
       subMessage.textContent = details || "";
@@ -580,18 +246,10 @@
 
     function clearResultDetails(){
       resultGrid.style.display = "none";
-      rName.textContent = "-";
-      rTime.textContent = "-";
-      rWorkDuration.textContent = "-";
-      rLateDuration.textContent = "-";
-      rEarlyLeave.textContent = "-";
-
-      workDurationKey.style.display = "none";
-      rWorkDuration.style.display = "none";
-      lateDurationKey.style.display = "none";
-      rLateDuration.style.display = "none";
-      earlyLeaveKey.style.display = "none";
-      rEarlyLeave.style.display = "none";
+      rName.textContent = "-"; rTime.textContent = "-"; rWorkDuration.textContent = "-"; rLateDuration.textContent = "-"; rEarlyLeave.textContent = "-";
+      workDurationKey.style.display = "none"; rWorkDuration.style.display = "none";
+      lateDurationKey.style.display = "none"; rLateDuration.style.display = "none";
+      earlyLeaveKey.style.display = "none"; rEarlyLeave.style.display = "none";
     }
 
     function showResultDetails(data){
@@ -599,30 +257,12 @@
       rName.textContent = data.employeeName || "-";
       rTime.textContent = data.operationTime || "-";
 
-      if(data.workDuration){
-        workDurationKey.style.display = "block";
-        rWorkDuration.style.display = "block";
-        rWorkDuration.textContent = data.workDuration;
-      }
-
-      if(data.lateDuration){
-        lateDurationKey.style.display = "block";
-        rLateDuration.style.display = "block";
-        rLateDuration.textContent = data.lateDuration;
-      }
-
-      if(data.earlyLeaveDuration){
-        earlyLeaveKey.style.display = "block";
-        rEarlyLeave.style.display = "block";
-        rEarlyLeave.textContent = data.earlyLeaveDuration;
-      }
+      if(data.workDuration){ workDurationKey.style.display = "block"; rWorkDuration.style.display = "block"; rWorkDuration.textContent = data.workDuration; }
+      if(data.lateDuration){ lateDurationKey.style.display = "block"; rLateDuration.style.display = "block"; rLateDuration.textContent = data.lateDuration; }
+      if(data.earlyLeaveDuration){ earlyLeaveKey.style.display = "block"; rEarlyLeave.style.display = "block"; rEarlyLeave.textContent = data.earlyLeaveDuration; }
     }
 
-    function hideConfirmBox(){
-      confirmBox.classList.remove("show");
-      pendingCheckoutNationalId = "";
-    }
-
+    function hideConfirmBox(){ confirmBox.classList.remove("show"); pendingCheckoutNationalId = ""; }
     function showConfirmBox(data){
       document.getElementById("cName").textContent = data.employeeName || "-";
       document.getElementById("cTime").textContent = data.operationTime || "-";
@@ -631,55 +271,35 @@
       pendingCheckoutNationalId = data.nationalId || "";
     }
 
-    /***************************************
-     * القفل ومنع التكرار
-     ***************************************/
-    async function hardLockAfterFirstScan(decodedText){
+    async function hardLockAfterFirstScan(){
       if(scanLocked || isProcessing) return false;
-
       scanLocked = true;
       isProcessing = true;
-      lastScannedText = String(decodedText || "").trim();
-
       showOverlay(true);
-
-      // إيقاف الاستشعار فعليًا فور أول قراءة
       await stopScannerInternal(true);
-
       return true;
     }
 
-    function releaseProcessingOnly(){
-      isProcessing = false;
-      showOverlay(false);
-    }
+    function releaseProcessingOnly(){ isProcessing = false; showOverlay(false); }
 
     function fullResetState(){
       scanLocked = false;
       isProcessing = false;
-      lastScannedText = "";
       pendingCheckoutNationalId = "";
       hideConfirmBox();
       showOverlay(false);
       clearResultDetails();
-      setMessage("info", "جاهز لمسح جديد", "اضغط تشغيل الكاميرا ثم وجّه البطاقة نحو العدسة.");
+      setMessage("info", "جاهز لمسح جديد", 'اضغط تشغيل الكاميرا ثم وجّه البطاقة نحو العدسة.');
     }
 
-    /***************************************
-     * تشغيل/إيقاف الكاميرا
-     ***************************************/
     async function startCamera(){
       if(scanLocked){
         setMessage("warning", "القراءة مقفلة حاليًا", 'اضغط "مسح جديد" أولًا لبدء قراءة جديدة.');
         flash("warning");
         return;
       }
-
       try{
-        if(!html5QrCode){
-          html5QrCode = new Html5Qrcode("reader");
-        }
-
+        if(!html5QrCode){ html5QrCode = new Html5Qrcode("reader"); }
         if(cameraRunning) return;
 
         const devices = await Html5Qrcode.getCameras();
@@ -689,18 +309,9 @@
           return;
         }
 
-        activeCameraId = devices[0].id;
-
         await html5QrCode.start(
-          activeCameraId,
-          {
-            fps: 10,
-            qrbox: function(viewfinderWidth, viewfinderHeight){
-              const side = Math.min(viewfinderWidth, viewfinderHeight) * 0.70;
-              return { width: side, height: side };
-            },
-            aspectRatio: 1.333
-          },
+          devices[0].id,
+          { fps: 10, aspectRatio: 1.333 },
           onScanSuccess,
           () => {}
         );
@@ -725,10 +336,7 @@
       }catch(_){}
       cameraRunning = false;
       setButtonsState();
-
-      if(!keepLocked){
-        scanLocked = false;
-      }
+      if(!keepLocked){ scanLocked = false; }
     }
 
     async function stopCamera(){
@@ -736,28 +344,50 @@
       setMessage("info", "تم إيقاف الكاميرا", scanLocked ? 'القراءة ما زالت مقفلة. اضغط "مسح جديد" لفك القفل.' : "يمكنك تشغيلها مرة أخرى متى شئت.");
     }
 
-    /***************************************
-     * القراءة والمعالجة
-     ***************************************/
+    function jsonpRequest(params){
+      return new Promise((resolve, reject) => {
+        const cbName = "__jsonp_cb_" + Date.now() + "_" + Math.floor(Math.random()*100000);
+        const script = document.createElement("script");
+        const query = new URLSearchParams({ ...params, callback: cbName }).toString();
+        const src = WEB_APP_URL + "?" + query;
+        let timer = null;
+
+        window[cbName] = function(data){
+          cleanup();
+          resolve(data);
+        };
+
+        function cleanup(){
+          if(timer) clearTimeout(timer);
+          delete window[cbName];
+          if(script.parentNode) script.parentNode.removeChild(script);
+        }
+
+        script.onerror = function(){
+          cleanup();
+          reject(new Error("JSONP load error"));
+        };
+
+        timer = setTimeout(function(){
+          cleanup();
+          reject(new Error("JSONP timeout"));
+        }, 15000);
+
+        script.src = src;
+        document.body.appendChild(script);
+      });
+    }
+
     async function onScanSuccess(decodedText){
       if(scanLocked || isProcessing) return;
-
-      const locked = await hardLockAfterFirstScan(decodedText);
+      const locked = await hardLockAfterFirstScan();
       if(!locked) return;
 
       try{
-        const payload = {
+        const data = await jsonpRequest({
           action: "scan",
           qrValue: decodedText
-        };
-
-        const res = await fetch(WEB_APP_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
         });
-
-        const data = await res.json();
         handleScanResponse(data);
       }catch(err){
         setMessage("error", "فشل الاتصال بالخدمة", "تعذر إرسال عملية المسح إلى الخادم.");
@@ -775,9 +405,7 @@
       if(!data || data.ok === false){
         const type = (data && data.type) || "error";
         setMessage(type, (data && data.message) || "حدث خطأ.", (data && data.employeeName) ? ("الموظف: " + data.employeeName) : "");
-        if(data && data.employeeName){
-          showResultDetails(data);
-        }
+        if(data && data.employeeName){ showResultDetails(data); }
         flash(mapFlashType(type));
         return;
       }
@@ -803,26 +431,17 @@
       return "error";
     }
 
-    /***************************************
-     * تأكيد الانصراف
-     ***************************************/
     confirmBtn.addEventListener("click", async function(){
       if(!pendingCheckoutNationalId || isProcessing) return;
-
       isProcessing = true;
       showOverlay(true);
 
       try{
-        const res = await fetch(WEB_APP_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            action: "confirmCheckout",
-            nationalId: pendingCheckoutNationalId
-          })
+        const data = await jsonpRequest({
+          action: "confirmCheckout",
+          nationalId: pendingCheckoutNationalId
         });
 
-        const data = await res.json();
         hideConfirmBox();
         clearResultDetails();
 
@@ -844,12 +463,8 @@
       flash("info");
     });
 
-    /***************************************
-     * الأزرار
-     ***************************************/
     startBtn.addEventListener("click", startCamera);
     stopBtn.addEventListener("click", stopCamera);
-
     resetBtn.addEventListener("click", async function(){
       await stopScannerInternal(false);
       fullResetState();
