@@ -18,8 +18,8 @@
       --danger:#c0392b; --warning:#b7791f; --info:#1d5fa8;
     }
     *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;font-family:'Cairo',sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text);padding:24px 22px;overflow-x:hidden}
-    .shell{max-width:980px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:28px;box-shadow:var(--shadow);overflow:hidden;min-height:calc(100vh - 36px);display:flex;flex-direction:column;position:relative;transition:box-shadow .08s linear, background-color .08s linear, filter .08s linear;}
+    body{margin:0;min-height:100vh;font-family:'Cairo',sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text);padding:26px 22px;overflow-x:hidden}
+    .shell{width:min(100%,880px);margin:8px auto 0;background:var(--card);border:1px solid var(--border);border-radius:28px;box-shadow:var(--shadow);overflow:hidden;min-height:calc(100vh - 60px);display:flex;flex-direction:column;position:relative;transition:box-shadow .08s linear, background-color .08s linear, filter .08s linear;}
     .shell.flash-success{animation:shellFlashSuccess .95s ease-out 1;}
     .shell.flash-error{animation:shellFlashError .95s ease-out 1;}
     .shell.flash-info{animation:shellFlashInfo .95s ease-out 1;}
@@ -60,20 +60,20 @@
       52%{box-shadow:0 0 0 3px rgba(255,255,255,.86),0 0 24px rgba(255,185,0,.72),0 0 48px rgba(255,185,0,.28);background:#fffbf2;filter:brightness(1.03)}
       100%{box-shadow:var(--shadow);background:#ffffff;filter:brightness(1)}
     }
-    .header{padding:18px 18px 8px;text-align:center}
-    .logo{width:100px;max-width:32vw;height:auto;display:block;margin:4px auto 12px}
-    .title{margin:0 6px;font-size:19px;color:var(--green-dark);font-weight:700}
-    .datebar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:8px 18px 14px}
+    .header{padding:22px 24px 10px;text-align:center}
+    .logo{width:98px;max-width:30vw;height:auto;display:block;margin:6px auto 14px}
+    .title{margin:0 12px;font-size:19px;color:var(--green-dark);font-weight:700;line-height:1.5}
+    .datebar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:8px 24px 14px}
     .mini-card{background:#fbfefd;border:1px solid var(--border);border-radius:18px;padding:10px 12px;text-align:center}
     .mini-label{font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:700}
     .mini-value{font-size:15px;font-weight:700;color:var(--green-dark)}
     .clock .mini-value{font-size:20px;letter-spacing:.5px}
-    .content{display:grid;grid-template-columns:1.2fr .9fr;gap:16px;padding:0 18px 18px;flex:1}
+    .content{display:grid;grid-template-columns:1.12fr .88fr;gap:14px;padding:0 24px 18px;flex:1}
     .panel{background:#fbfefd;border:1px solid var(--border);border-radius:22px;overflow:hidden;position:relative}
-    .panel-head{padding:11px 13px;border-bottom:1px solid #e6f0ea;background:linear-gradient(180deg,#fbfefd,#f6fbf8);font-size:14px;font-weight:700;color:var(--green-dark)}
+    .panel-head{padding:12px 14px;border-bottom:1px solid #e6f0ea;background:linear-gradient(180deg,#fbfefd,#f6fbf8);font-size:14px;font-weight:700;color:var(--green-dark)}
     .camera-wrap{padding:12px;position:relative}
     #reader{
-      width:100%; min-height:360px; border:none; border-radius:18px; overflow:hidden; background:#eff7f2;
+      width:100%; min-height:350px; border:none; border-radius:18px; overflow:hidden; background:#eff7f2;
     }
     #reader video{ object-fit:cover !important; width:100% !important; height:100% !important; border-radius:18px !important; }
     #reader img{ display:none !important; }
@@ -93,7 +93,7 @@
     .btn-secondary{background:#eaf3ee;color:var(--green-dark)}
     .btn.active{box-shadow:0 0 0 3px rgba(30,123,88,.16) inset;filter:brightness(.96)}
     .status-panel{padding:12px;display:flex;flex-direction:column;gap:10px}
-    .msg-box{border-radius:18px;border:1px solid var(--border);padding:12px;min-height:112px;background:#fff}
+    .msg-box{border-radius:18px;border:1px solid var(--border);padding:12px;min-height:110px;background:#fff}
     .msg-type{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;margin-bottom:8px}
     .type-success{background:#e7faef;color:#137c45}
     .type-error{background:#fdecea;color:#b42318}
@@ -108,7 +108,7 @@
     .confirm-box.show{display:block}
     .confirm-title{font-size:16px;font-weight:700;color:#8a5b00;margin-bottom:10px}
     .confirm-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
-    .footer{border-top:1px solid var(--border);padding:12px 14px;text-align:center;background:#f8fcf9;font-size:12px;line-height:1.8;color:#47695c}
+    .footer{border-top:1px solid var(--border);padding:10px 14px;text-align:center;background:#f8fcf9;font-size:12px;line-height:1.75;color:#47695c}
     @media (max-width:860px){.content{grid-template-columns:1fr}.datebar{grid-template-columns:repeat(2,1fr)}#reader{min-height:320px}}
     @media (max-width:520px){.datebar{grid-template-columns:1fr 1fr}.main-message{font-size:17px}}
   </style>
@@ -231,7 +231,7 @@
       if(audioCtx && audioCtx.state === "suspended"){ audioCtx.resume(); }
     }
 
-    function beep(freq=880, duration=0.08, when=0, gainValue=0.035, wave="sine"){
+    function beep(freq=880, duration=0.09, when=0, gainValue=0.09, wave="sine"){
       if(!audioCtx) return;
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
@@ -254,19 +254,19 @@
       ensureAudio();
       if(!audioCtx) return;
       if(type === "success"){
-        beep(880,0.08,0,0.03,"sine");
-        beep(1175,0.11,0.09,0.03,"sine");
+        beep(880,0.09,0,0.18,"sine");
+        beep(1175,0.12,0.10,0.18,"sine");
       }else if(type === "error"){
-        beep(320,0.12,0,0.04,"triangle");
-        beep(220,0.16,0.10,0.04,"triangle");
+        beep(320,0.14,0,0.22,"triangle");
+        beep(220,0.18,0.12,0.22,"triangle");
       }else if(type === "warning"){
-        beep(740,0.09,0,0.03,"square");
-        beep(740,0.09,0.13,0.03,"square");
+        beep(740,0.10,0,0.18,"square");
+        beep(740,0.10,0.14,0.18,"square");
       }else if(type === "confirm"){
-        beep(660,0.07,0,0.025,"sine");
-        beep(880,0.07,0.09,0.025,"sine");
+        beep(660,0.08,0,0.14,"sine");
+        beep(880,0.08,0.10,0.14,"sine");
       }else{
-        beep(620,0.08,0,0.025,"sine");
+        beep(620,0.09,0,0.14,"sine");
       }
     }
 
@@ -388,6 +388,8 @@
         cameraRunning = true;
         setButtonsState();
         setMessage("info", "الكاميرا تعمل الآن", "وجّه بطاقة الموظف نحو العدسة.");
+        flash("info");
+        playSound("info");
       }catch(err){
         cameraRunning = false;
         setButtonsState();
@@ -441,7 +443,7 @@
         timer = setTimeout(function(){
           cleanup();
           reject(new Error("JSONP timeout"));
-        }, 8000);
+        }, 15000);
 
         script.src = src;
         document.body.appendChild(script);
@@ -475,10 +477,11 @@
 
       if(!data || data.ok === false){
         const type = (data && data.type) || "error";
+        const visual = getVisualState(data);
         setMessage(type, (data && data.message) || "حدث خطأ.", (data && data.employeeName) ? ("الموظف: " + data.employeeName) : "");
         if(data && data.employeeName){ showResultDetails(data); }
-        flash(mapFlashType(type));
-        playSound(type);
+        flash(visual);
+        playSound(visual === 'error' ? 'error' : type);
         return;
       }
 
@@ -486,15 +489,17 @@
         setMessage("warning", data.message || "هل تريد تسجيل الانصراف الآن؟", "لن يتم تنفيذ الانصراف إلا بعد الضغط على موافق.");
         showResultDetails(data);
         showConfirmBox(data);
-        flash("warning");
+        flash("info");
         playSound("confirm");
         return;
       }
 
       const type = data.type || "success";
+      const visual = getVisualState(data);
       setMessage(type, data.message || "تمت العملية بنجاح.", "");
       showResultDetails(data);
-      flash(mapFlashType(type));
+      flash(visual);
+      playSound(visual === 'error' ? 'error' : type);
     }
 
     function mapFlashType(type){
@@ -502,6 +507,18 @@
       if(type === "warning") return "warning";
       if(type === "info") return "info";
       return "error";
+    }
+
+    function getVisualState(data){
+      const status = String((data && data.status) || '').trim();
+      if(status === 'checkin' || status === 'checkout') return 'success';
+      if(status === 'late_checkin' || status === 'early_leave' || status === 'completed' || status === 'outside_entry_window') return 'error';
+      if(status === 'confirm_checkout') return 'info';
+      const type = String((data && data.type) || '').trim();
+      if(type === 'success') return 'success';
+      if(type === 'info') return 'info';
+      if(type === 'warning') return 'error';
+      return 'error';
     }
 
     confirmBtn.addEventListener("click", async function(){
@@ -520,10 +537,11 @@
         clearResultDetails();
 
         const type = (data && data.type) || (data && data.ok ? "success" : "error");
+        const visual = getVisualState(data || {type:type});
         setMessage(type, (data && data.message) || "تم تنفيذ العملية.", "");
         if(data) showResultDetails(data);
-        flash(mapFlashType(type));
-        playSound(type);
+        flash(visual);
+        playSound(visual === 'error' ? 'error' : type);
       }catch(err){
         setMessage("error", "تعذر تسجيل الانصراف", "حدث خطأ أثناء تأكيد الانصراف.");
         flash("error");
@@ -548,6 +566,7 @@
       fullResetState();
       flash("info");
       playSound("info");
+      await startCamera();
     });
 
     fullResetState();
