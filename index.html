@@ -19,23 +19,69 @@
     }
     *{box-sizing:border-box}
     body{margin:0;min-height:100vh;font-family:'Cairo',sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text);padding:18px;overflow-x:hidden}
-    .flash-layer{
-      position:fixed; inset:0; pointer-events:none; opacity:0; z-index:9999;
-      background:transparent;
+    .camera-flash{
+      position:absolute;
+      inset:14px;
+      border-radius:18px;
+      pointer-events:none;
+      opacity:0;
+      z-index:18;
+      mix-blend-mode:screen;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.00), rgba(255,255,255,0.10), rgba(255,255,255,0.00));
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.08),
+        inset 0 0 40px rgba(255,255,255,0.03);
     }
-    .flash-layer.active{ animation:fullFlash 2.4s ease-out; }
-    .flash-success{ background:rgba(57, 255, 20, 0.17); }
-    .flash-error{ background:rgba(255, 50, 50, 0.16); }
-    .flash-info{ background:rgba(66, 165, 255, 0.16); }
-    .flash-warning{ background:rgba(255, 208, 0, 0.16); }
-    @keyframes fullFlash{
-      0%{opacity:0}
-      8%{opacity:1}
-      16%{opacity:.15}
-      24%{opacity:1}
-      32%{opacity:.12}
-      40%{opacity:.8}
-      100%{opacity:0}
+    .camera-flash.active{
+      animation:innerFlash 1.15s ease-out;
+    }
+    .flash-success{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.20), rgba(255,255,255,0.06)),
+        rgba(18, 210, 110, 0.16);
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.12),
+        inset 0 0 52px rgba(255,255,255,0.16),
+        0 0 32px rgba(18, 210, 110, 0.12);
+    }
+    .flash-error{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.22), rgba(255,255,255,0.06)),
+        rgba(220, 50, 50, 0.15);
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.13),
+        inset 0 0 52px rgba(255,255,255,0.16),
+        0 0 32px rgba(220, 50, 50, 0.11);
+    }
+    .flash-info{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.22), rgba(255,255,255,0.06)),
+        rgba(55, 135, 255, 0.15);
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.13),
+        inset 0 0 52px rgba(255,255,255,0.16),
+        0 0 32px rgba(55, 135, 255, 0.11);
+    }
+    .flash-warning{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.22), rgba(255,255,255,0.06)),
+        rgba(255, 170, 0, 0.15);
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.13),
+        inset 0 0 52px rgba(255,255,255,0.16),
+        0 0 32px rgba(255, 170, 0, 0.11);
+    }
+    @keyframes innerFlash{
+      0%   {opacity:0;   filter:brightness(1)}
+      7%   {opacity:1;   filter:brightness(1.20)}
+      13%  {opacity:.12; filter:brightness(1.00)}
+      20%  {opacity:.95; filter:brightness(1.15)}
+      28%  {opacity:.10; filter:brightness(1.00)}
+      36%  {opacity:.80; filter:brightness(1.10)}
+      46%  {opacity:.06; filter:brightness(1.00)}
+      58%  {opacity:.55; filter:brightness(1.06)}
+      100% {opacity:0;   filter:brightness(1)}
     }
 
     .shell{max-width:980px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:28px;box-shadow:var(--shadow);overflow:hidden;min-height:calc(100vh - 36px);display:flex;flex-direction:column}
@@ -93,7 +139,6 @@
   </style>
 </head>
 <body>
-  <div id="flashLayer" class="flash-layer"></div>
 
   <div class="shell">
     <div class="header">
@@ -113,6 +158,7 @@
         <div class="panel-head">الكاميرا</div>
         <div class="camera-wrap">
           <div id="reader"></div>
+          <div id="cameraFlash" class="camera-flash"></div>
           <div id="scanOverlay" class="overlay">
             <div class="overlay-box">
               <div class="overlay-title">تم التقاط الرمز</div>
@@ -182,7 +228,7 @@
     const stopBtn = document.getElementById("stopBtn");
     const resetBtn = document.getElementById("resetBtn");
     const scanOverlay = document.getElementById("scanOverlay");
-    const flashLayer = document.getElementById("flashLayer");
+    const cameraFlash = document.getElementById("cameraFlash");
 
     const msgType = document.getElementById("msgType");
     const mainMessage = document.getElementById("mainMessage");
@@ -272,13 +318,13 @@
     }
 
     function flash(type){
-      flashLayer.className = "flash-layer";
-      if(type === "success") flashLayer.classList.add("flash-success");
-      else if(type === "error") flashLayer.classList.add("flash-error");
-      else if(type === "warning") flashLayer.classList.add("flash-warning");
-      else flashLayer.classList.add("flash-info");
-      void flashLayer.offsetWidth;
-      flashLayer.classList.add("active");
+      cameraFlash.className = "camera-flash";
+      if(type === "success") cameraFlash.classList.add("flash-success");
+      else if(type === "error") cameraFlash.classList.add("flash-error");
+      else if(type === "warning") cameraFlash.classList.add("flash-warning");
+      else cameraFlash.classList.add("flash-info");
+      void cameraFlash.offsetWidth;
+      cameraFlash.classList.add("active");
     }
 
     function setMessage(type, title, details){
