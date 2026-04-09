@@ -19,9 +19,6 @@
     }
     *{box-sizing:border-box}
     body{margin:0;min-height:100vh;font-family:'Cairo',sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text);padding:18px;overflow-x:hidden}
-
-
-    
     .shell{
       max-width:980px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:28px;box-shadow:var(--shadow);overflow:hidden;min-height:calc(100vh - 36px);display:flex;flex-direction:column;
       position:relative;
@@ -47,56 +44,55 @@
     }
     .kiosk-flash::before{
       background:
-        radial-gradient(circle at 50% 45%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.60) 24%, rgba(255,255,255,.18) 48%, rgba(255,255,255,0) 75%);
+        radial-gradient(circle at 50% 45%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.68) 22%, rgba(255,255,255,.24) 44%, rgba(255,255,255,0) 74%);
       mix-blend-mode:screen;
-      filter:blur(.3px);
+      filter:blur(.2px);
     }
     .kiosk-flash::after{
       background:transparent;
     }
     .kiosk-flash.active::before{
-      animation:kioskWhitePulse .42s linear 3;
+      animation:kioskWhitePulse .36s linear 3;
     }
     .kiosk-flash.active::after{
-      animation:kioskColorPulse .95s ease-out 1;
+      animation:kioskColorPulse .88s ease-out 1;
     }
     .flash-success::after{
-      background:rgba(0,255,120,.20);
-      box-shadow: inset 0 0 120px rgba(255,255,255,.18), 0 0 40px rgba(0,255,120,.14);
+      background:rgba(0,255,120,.28);
+      box-shadow: inset 0 0 120px rgba(255,255,255,.22), 0 0 42px rgba(0,255,120,.18);
     }
     .flash-error::after{
-      background:rgba(255,35,35,.20);
-      box-shadow: inset 0 0 120px rgba(255,255,255,.16), 0 0 40px rgba(255,35,35,.14);
+      background:rgba(255,35,35,.28);
+      box-shadow: inset 0 0 120px rgba(255,255,255,.20), 0 0 42px rgba(255,35,35,.18);
     }
     .flash-info::after{
-      background:rgba(50,150,255,.20);
-      box-shadow: inset 0 0 120px rgba(255,255,255,.16), 0 0 40px rgba(50,150,255,.14);
+      background:rgba(50,150,255,.28);
+      box-shadow: inset 0 0 120px rgba(255,255,255,.20), 0 0 42px rgba(50,150,255,.18);
     }
     .flash-warning::after{
-      background:rgba(255,185,0,.20);
-      box-shadow: inset 0 0 120px rgba(255,255,255,.16), 0 0 40px rgba(255,185,0,.14);
+      background:rgba(255,185,0,.28);
+      box-shadow: inset 0 0 120px rgba(255,255,255,.20), 0 0 42px rgba(255,185,0,.18);
     }
     @keyframes kioskWhitePulse{
       0%{opacity:0}
-      10%{opacity:1}
-      30%{opacity:0}
-      44%{opacity:.96}
-      64%{opacity:0}
-      80%{opacity:.72}
+      8%{opacity:1}
+      26%{opacity:0}
+      40%{opacity:.98}
+      58%{opacity:0}
+      74%{opacity:.78}
       100%{opacity:0}
     }
     @keyframes kioskColorPulse{
       0%{opacity:0}
-      10%{opacity:.82}
-      26%{opacity:.14}
-      42%{opacity:.58}
-      58%{opacity:.08}
-      76%{opacity:.32}
+      8%{opacity:.88}
+      24%{opacity:.16}
+      40%{opacity:.62}
+      56%{opacity:.08}
+      74%{opacity:.34}
       100%{opacity:0}
     }
 
-.shell{
-    .header{padding:18px 18px 8px;text-align:center;position:relative;z-index:6}
+        .header{padding:18px 18px 8px;text-align:center;position:relative;z-index:6}
     .logo{width:110px;max-width:35vw;height:auto;display:block;margin:0 auto 10px}
     .title{margin:0;font-size:20px;color:var(--green-dark);font-weight:700}
     .datebar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:8px 18px 14px;position:relative;z-index:6}
@@ -516,6 +512,7 @@
         setMessage(type, (data && data.message) || "حدث خطأ.", (data && data.employeeName) ? ("الموظف: " + data.employeeName) : "");
         if(data && data.employeeName){ showResultDetails(data); }
         flash(mapFlashType(type));
+      playSound(type);
         playSound(type);
         return;
       }
