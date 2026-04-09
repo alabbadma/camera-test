@@ -20,85 +20,91 @@
     *{box-sizing:border-box}
     body{margin:0;min-height:100vh;font-family:'Cairo',sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text);padding:18px;overflow-x:hidden}
 
-    .camera-flash{
+
+    
+    .shell{
+      max-width:980px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:28px;box-shadow:var(--shadow);overflow:hidden;min-height:calc(100vh - 36px);display:flex;flex-direction:column;
+      position:relative;
+      isolation:isolate;
+    }
+    .kiosk-flash{
       position:absolute;
-      inset:14px;
-      border-radius:18px;
+      inset:0;
+      border-radius:28px;
       pointer-events:none;
       opacity:0;
-      z-index:19;
+      z-index:5;
       overflow:hidden;
       background:transparent;
     }
-    .camera-flash::before,
-    .camera-flash::after{
+    .kiosk-flash::before,
+    .kiosk-flash::after{
       content:"";
       position:absolute;
       inset:0;
-      border-radius:18px;
+      border-radius:28px;
       opacity:0;
     }
-    .camera-flash::before{
+    .kiosk-flash::before{
       background:
-        radial-gradient(circle at 50% 50%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.60) 26%, rgba(255,255,255,.18) 48%, rgba(255,255,255,0) 75%);
+        radial-gradient(circle at 50% 45%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.60) 24%, rgba(255,255,255,.18) 48%, rgba(255,255,255,0) 75%);
       mix-blend-mode:screen;
-      filter:blur(.2px);
+      filter:blur(.3px);
     }
-    .camera-flash::after{
+    .kiosk-flash::after{
       background:transparent;
     }
-    .camera-flash.active::before{
-      animation:flashWhitePulse .42s linear 3;
+    .kiosk-flash.active::before{
+      animation:kioskWhitePulse .42s linear 3;
     }
-    .camera-flash.active::after{
-      animation:flashColorPulse .90s ease-out 1;
+    .kiosk-flash.active::after{
+      animation:kioskColorPulse .95s ease-out 1;
     }
     .flash-success::after{
-      background:rgba(0,255,120,.26);
-      box-shadow: inset 0 0 95px rgba(255,255,255,.22), 0 0 34px rgba(0,255,120,.18);
+      background:rgba(0,255,120,.20);
+      box-shadow: inset 0 0 120px rgba(255,255,255,.18), 0 0 40px rgba(0,255,120,.14);
     }
     .flash-error::after{
-      background:rgba(255,35,35,.25);
-      box-shadow: inset 0 0 95px rgba(255,255,255,.20), 0 0 34px rgba(255,35,35,.17);
+      background:rgba(255,35,35,.20);
+      box-shadow: inset 0 0 120px rgba(255,255,255,.16), 0 0 40px rgba(255,35,35,.14);
     }
     .flash-info::after{
-      background:rgba(50,150,255,.25);
-      box-shadow: inset 0 0 95px rgba(255,255,255,.20), 0 0 34px rgba(50,150,255,.17);
+      background:rgba(50,150,255,.20);
+      box-shadow: inset 0 0 120px rgba(255,255,255,.16), 0 0 40px rgba(50,150,255,.14);
     }
     .flash-warning::after{
-      background:rgba(255,185,0,.25);
-      box-shadow: inset 0 0 95px rgba(255,255,255,.20), 0 0 34px rgba(255,185,0,.17);
+      background:rgba(255,185,0,.20);
+      box-shadow: inset 0 0 120px rgba(255,255,255,.16), 0 0 40px rgba(255,185,0,.14);
     }
-    @keyframes flashWhitePulse{
+    @keyframes kioskWhitePulse{
       0%{opacity:0}
       10%{opacity:1}
       30%{opacity:0}
       44%{opacity:.96}
       64%{opacity:0}
-      80%{opacity:.78}
+      80%{opacity:.72}
       100%{opacity:0}
     }
-    @keyframes flashColorPulse{
+    @keyframes kioskColorPulse{
       0%{opacity:0}
-      10%{opacity:.84}
-      26%{opacity:.16}
-      42%{opacity:.62}
-      58%{opacity:.10}
-      76%{opacity:.36}
+      10%{opacity:.82}
+      26%{opacity:.14}
+      42%{opacity:.58}
+      58%{opacity:.08}
+      76%{opacity:.32}
       100%{opacity:0}
     }
 
-
-    .shell{max-width:980px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:28px;box-shadow:var(--shadow);overflow:hidden;min-height:calc(100vh - 36px);display:flex;flex-direction:column}
-    .header{padding:18px 18px 8px;text-align:center}
+.shell{
+    .header{padding:18px 18px 8px;text-align:center;position:relative;z-index:6}
     .logo{width:110px;max-width:35vw;height:auto;display:block;margin:0 auto 10px}
     .title{margin:0;font-size:20px;color:var(--green-dark);font-weight:700}
-    .datebar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:8px 18px 14px}
+    .datebar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:8px 18px 14px;position:relative;z-index:6}
     .mini-card{background:#fbfefd;border:1px solid var(--border);border-radius:18px;padding:10px 12px;text-align:center}
     .mini-label{font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:700}
     .mini-value{font-size:15px;font-weight:700;color:var(--green-dark)}
     .clock .mini-value{font-size:20px;letter-spacing:.5px}
-    .content{display:grid;grid-template-columns:1.2fr .9fr;gap:16px;padding:0 18px 18px;flex:1}
+    .content{display:grid;grid-template-columns:1.2fr .9fr;gap:16px;padding:0 18px 18px;flex:1;position:relative;z-index:6}
     .panel{background:#fbfefd;border:1px solid var(--border);border-radius:22px;overflow:hidden;position:relative}
     .panel-head{padding:12px 14px;border-bottom:1px solid #e6f0ea;background:linear-gradient(180deg,#fbfefd,#f6fbf8);font-size:14px;font-weight:700;color:var(--green-dark)}
     .camera-wrap{padding:14px;position:relative}
@@ -138,13 +144,14 @@
     .confirm-box.show{display:block}
     .confirm-title{font-size:16px;font-weight:700;color:#8a5b00;margin-bottom:10px}
     .confirm-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
-    .footer{border-top:1px solid var(--border);padding:12px 14px;text-align:center;background:#f8fcf9;font-size:12px;line-height:1.8;color:#47695c}
+    .footer{border-top:1px solid var(--border);padding:12px 14px;text-align:center;background:#f8fcf9;font-size:12px;line-height:1.8;color:#47695c;position:relative;z-index:6}
     @media (max-width:860px){.content{grid-template-columns:1fr}.datebar{grid-template-columns:repeat(2,1fr)}#reader{min-height:320px}}
     @media (max-width:520px){.datebar{grid-template-columns:1fr 1fr}.main-message{font-size:17px}}
   </style>
 </head>
 <body>
   <div class="shell">
+    <div id="kioskFlash" class="kiosk-flash"></div>
     <div class="header">
       <img src="moe-logo.png" alt="شعار وزارة التعليم" class="logo">
       <h1 class="title">نظام حضور وانصراف الموظفين</h1>
@@ -162,7 +169,6 @@
         <div class="panel-head">الكاميرا</div>
         <div class="camera-wrap">
           <div id="reader"></div>
-          <div id="cameraFlash" class="camera-flash"></div>
           <div id="scanOverlay" class="overlay">
             <div class="overlay-box">
               <div class="overlay-title">تم التقاط الرمز</div>
@@ -232,7 +238,7 @@
     const stopBtn = document.getElementById("stopBtn");
     const resetBtn = document.getElementById("resetBtn");
     const scanOverlay = document.getElementById("scanOverlay");
-    const cameraFlash = document.getElementById("cameraFlash");
+    const kioskFlash = document.getElementById("kioskFlash");
 
     const msgType = document.getElementById("msgType");
     const mainMessage = document.getElementById("mainMessage");
@@ -322,13 +328,13 @@
     }
 
     function flash(type){
-      cameraFlash.className = "camera-flash";
-      if(type === "success") cameraFlash.classList.add("flash-success");
-      else if(type === "error") cameraFlash.classList.add("flash-error");
-      else if(type === "warning") cameraFlash.classList.add("flash-warning");
-      else cameraFlash.classList.add("flash-info");
-      void cameraFlash.offsetWidth;
-      cameraFlash.classList.add("active");
+      kioskFlash.className = "kiosk-flash";
+      if(type === "success") kioskFlash.classList.add("flash-success");
+      else if(type === "error") kioskFlash.classList.add("flash-error");
+      else if(type === "warning") kioskFlash.classList.add("flash-warning");
+      else kioskFlash.classList.add("flash-info");
+      void kioskFlash.offsetWidth;
+      kioskFlash.classList.add("active");
     }
 
     function setMessage(type, title, details){
