@@ -19,6 +19,7 @@
     }
     *{box-sizing:border-box}
     body{margin:0;min-height:100vh;font-family:'Cairo',sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text);padding:18px;overflow-x:hidden}
+
     .camera-flash{
       position:absolute;
       inset:14px;
@@ -38,53 +39,55 @@
       opacity:0;
     }
     .camera-flash::before{
-      background:radial-gradient(circle at 50% 50%, rgba(255,255,255,.95) 0%, rgba(255,255,255,.45) 34%, rgba(255,255,255,0) 74%);
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.60) 26%, rgba(255,255,255,.18) 48%, rgba(255,255,255,0) 75%);
       mix-blend-mode:screen;
+      filter:blur(.2px);
     }
     .camera-flash::after{
       background:transparent;
-      box-shadow: inset 0 0 90px rgba(255,255,255,.10);
     }
     .camera-flash.active::before{
-      animation:flashWhitePulse .48s linear 3;
+      animation:flashWhitePulse .42s linear 3;
     }
     .camera-flash.active::after{
-      animation:flashColorPulse .95s ease-out 1;
+      animation:flashColorPulse .90s ease-out 1;
     }
     .flash-success::after{
-      background:rgba(0,255,120,.24);
-      box-shadow: inset 0 0 95px rgba(255,255,255,.20), 0 0 32px rgba(0,255,120,.18);
+      background:rgba(0,255,120,.26);
+      box-shadow: inset 0 0 95px rgba(255,255,255,.22), 0 0 34px rgba(0,255,120,.18);
     }
     .flash-error::after{
-      background:rgba(255,35,35,.23);
-      box-shadow: inset 0 0 95px rgba(255,255,255,.18), 0 0 32px rgba(255,35,35,.16);
+      background:rgba(255,35,35,.25);
+      box-shadow: inset 0 0 95px rgba(255,255,255,.20), 0 0 34px rgba(255,35,35,.17);
     }
     .flash-info::after{
-      background:rgba(50,150,255,.23);
-      box-shadow: inset 0 0 95px rgba(255,255,255,.18), 0 0 32px rgba(50,150,255,.16);
+      background:rgba(50,150,255,.25);
+      box-shadow: inset 0 0 95px rgba(255,255,255,.20), 0 0 34px rgba(50,150,255,.17);
     }
     .flash-warning::after{
-      background:rgba(255,185,0,.23);
-      box-shadow: inset 0 0 95px rgba(255,255,255,.18), 0 0 32px rgba(255,185,0,.16);
+      background:rgba(255,185,0,.25);
+      box-shadow: inset 0 0 95px rgba(255,255,255,.20), 0 0 34px rgba(255,185,0,.17);
     }
     @keyframes flashWhitePulse{
       0%{opacity:0}
       10%{opacity:1}
-      28%{opacity:0}
-      42%{opacity:.96}
-      62%{opacity:0}
-      78%{opacity:.72}
+      30%{opacity:0}
+      44%{opacity:.96}
+      64%{opacity:0}
+      80%{opacity:.78}
       100%{opacity:0}
     }
     @keyframes flashColorPulse{
       0%{opacity:0}
-      8%{opacity:.82}
-      24%{opacity:.16}
-      40%{opacity:.60}
-      58%{opacity:.08}
-      78%{opacity:.35}
+      10%{opacity:.84}
+      26%{opacity:.16}
+      42%{opacity:.62}
+      58%{opacity:.10}
+      76%{opacity:.36}
       100%{opacity:0}
     }
+
 
     .shell{max-width:980px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:28px;box-shadow:var(--shadow);overflow:hidden;min-height:calc(100vh - 36px);display:flex;flex-direction:column}
     .header{padding:18px 18px 8px;text-align:center}
@@ -507,7 +510,6 @@
         setMessage(type, (data && data.message) || "حدث خطأ.", (data && data.employeeName) ? ("الموظف: " + data.employeeName) : "");
         if(data && data.employeeName){ showResultDetails(data); }
         flash(mapFlashType(type));
-      playSound(type);
         playSound(type);
         return;
       }
